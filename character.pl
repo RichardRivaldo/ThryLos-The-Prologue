@@ -22,6 +22,9 @@ createSwordsman(X) :-   asserta(class(X, swordsman)),
                         asserta(magic(X, 2)), 
                         asserta(defense(X, 5)), 
                         asserta(speed(X, 2)),
+                        asserta(gold(X, 500)),
+                        asserta(exp(X, 0)),
+                        asserta(level(X, 1)),
                         initInventSK.
 
 /* Definisi Hidden Class Knight */
@@ -33,6 +36,9 @@ createKnight(X) :-      asserta(class(X, knight)),
                         asserta(magic(X, 3)), 
                         asserta(defense(X, 7)), 
                         asserta(speed(X, 3)),
+                        asserta(gold(X, 500)),
+                        asserta(exp(X, 0)),
+                        asserta(level(X, 1)),
                         initInventSK.
 
 
@@ -45,6 +51,9 @@ createArcher(X) :-      asserta(class(X, archer)),
                         asserta(magic(X, 3)), 
                         asserta(defense(X, 4)), 
                         asserta(speed(X, 7)),
+                        asserta(gold(X, 500)),
+                        asserta(exp(X, 0)),
+                        asserta(level(X, 1)),
                         initInventAH.
 
 /* Definisi Hidden Class Hunter */
@@ -56,6 +65,9 @@ createHunter(X) :-      asserta(class(X, hunter)),
                         asserta(magic(X, 4)), 
                         asserta(defense(X, 5)), 
                         asserta(speed(X, 9)),
+                        asserta(gold(X, 500)),
+                        asserta(exp(X, 0)),
+                        asserta(level(X, 1)),
                         initInventAH.
 
 /* Definisi Class Sorcerer */
@@ -67,6 +79,9 @@ createSorcerer(X) :-    asserta(class(X, sorcerer)),
                         asserta(magic(X, 7)), 
                         asserta(defense(X, 4)), 
                         asserta(speed(X, 3)),
+                        asserta(gold(X, 500)),
+                        asserta(exp(X, 0)),
+                        asserta(level(X, 1)),
                         initInventSM.
 
 /* Definisi Hidden Class Magus */
@@ -78,6 +93,9 @@ createMagus(X) :-       asserta(class(X, magus)),
                         asserta(magic(X, 9)), 
                         asserta(defense(X, 5)), 
                         asserta(speed(X, 4)),
+                        asserta(gold(X, 500)),
+                        asserta(exp(X, 0)),
+                        asserta(level(X, 1)),
                         initInventSM.
 
 /* Definisi Class Assassin */
@@ -89,6 +107,9 @@ createAssassin(X) :-    asserta(class(X, assassin)),
                         asserta(magic(X, 3)), 
                         asserta(defense(X, 3)), 
                         asserta(speed(X, 5)),
+                        asserta(gold(X, 500)),
+                        asserta(exp(X, 0)),
+                        asserta(level(X, 1)),
                         initInventAS.
 
 /* Definisi Hidden Class Slayer */
@@ -100,6 +121,9 @@ createSlayer(X) :-      asserta(class(X, slayer)),
                         asserta(magic(X, 3)), 
                         asserta(defense(X, 4)), 
                         asserta(speed(X, 6)),
+                        asserta(gold(X, 500)),
+                        asserta(exp(X, 0)),
+                        asserta(level(X, 1)),
                         initInventAS.
 
 /* Definisi Class Tamer */
@@ -111,6 +135,9 @@ createTamer(X) :-       asserta(class(X, tamer)),
                         asserta(magic(X, 3)), 
                         asserta(defense(X, 5)), 
                         asserta(speed(X, 4)),
+                        asserta(gold(X, 500)),
+                        asserta(exp(X, 0)),
+                        asserta(level(X, 1)),
                         initInventTS.
 
 /* Definisi Hidden Class Summoner */
@@ -122,6 +149,9 @@ createSummoner(X) :-    asserta(class(X, summoner)),
                         asserta(magic(X, 5)), 
                         asserta(defense(X, 7)), 
                         asserta(speed(X, 4)),
+                        asserta(gold(X, 500)),
+                        asserta(exp(X, 0)),
+                        asserta(level(X, 1)),
                         initInventTS.
 
 
@@ -328,6 +358,13 @@ checkStats(Username) :- write('   ___ _                         __ _        _   
                         write('---------Personal Information---------'), nl, nl,
                         write('Username  : '), write(Username), nl,
                         write('Class     : '), class(Username, Class), write(Class), nl,
+                        write('Level     : '), 
+                        (level(Username, 6), write('MAX LEVEL!'), nl;
+                        level(Username, Level), Level =\= 6, write(Level), nl),
+                        write('EXP       : '), exp(Username, EXP), write(EXP), nl,
+                        write('Gold      : '), gold(Username, Gold), write(Gold), nl, nl,
+
+                        write('----------Player Statistics----------'), nl, nl,
                         write('Health    : '), health(Username, Health), write(Health), nl,
                         write('Attack    : '), attack(Username, Attack), write(Attack), nl,
                         write('Magic     : '), magic(Username, Magic), write(Magic), nl,

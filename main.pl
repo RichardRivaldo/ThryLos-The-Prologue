@@ -5,6 +5,7 @@
 :- include('character.pl').
 :- include('inventory.pl').
 :- include('items.pl').
+:- include('leveling.pl').
 
 /* Definisi Start Game */
 
@@ -172,7 +173,7 @@ start    :-     write('Welcome'), nl,
 /* Input perintah */
 
 /* Check Stats dan Equipment Player */
-stats :-            class(User, _), checkStats(User).
+stats :-            class(User, _), checkStats(User), !.
 
 /* Weapon Info */
 weapon(X) :-        isWeapon(X,_), checkWeapon(X), !.
