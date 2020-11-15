@@ -354,5 +354,5 @@ inventory :-            write('  _____                      _                   
 
 checkEquip :-           write('--------------Equipments--------------'), nl, nl,
                         write('Weapon    : |'), eqWeapon(X), write(X), write('|'), nl,
-                        write('Armor     : |'), eqArmor(X), write(X), write('|'), nl, 
-                        write('Accessory : |'), eqAccessory(X), write(X), write('|'), nl, nl.
+                        write('Armor     : |'), eqArmor(Y), write(Y), write('|'), nl, 
+                        write('Accessory : |'), eqAccessory(Z), write(Z), write('|'), nl, nl.
