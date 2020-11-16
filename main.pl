@@ -6,6 +6,7 @@
 :- include('inventory.pl').
 :- include('items.pl').
 :- include('leveling.pl').
+:- include('store.pl').
 
 /* Definisi Start Game */
 
