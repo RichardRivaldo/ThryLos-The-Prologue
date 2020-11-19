@@ -8,10 +8,34 @@
 :- include('leveling.pl').
 :- include('store.pl').
 
+/* Definisi Main Menu */
+
+mainMenu :-     write('              _'), nl,
+                write('  /\\/\\   __ _(_)_ __     /\\/\\   ___ _ __  _   _ '), nl,
+                write(' /    \\ / _` | | \'_ \\   /    \\ / _ \\ \'_ \\| | | |'), nl,
+                write('/ /\\/\\ \\ (_| | | | | | / /\\/\\ \\  __/ | | | |_| |'), nl,
+                write('\\/    \\/\__,_|_|_| |_| \\/    \\/\\___|_| |_|\\__,_|'), nl, nl,
+
+                write('------------------------------------------------------'), nl,
+                write('                 1. Start Your Journey                '), nl,
+                write('------------------------------------------------------'), nl,
+                write('------------------------------------------------------'), nl,
+                write('                       2. WikiLog                     '), nl,
+                write('------------------------------------------------------'), nl,
+                write('------------------------------------------------------'), nl,
+                write('                    3. Quit The Game                  '), nl,
+                write('------------------------------------------------------'), nl, nl,
+
+                write('Whatever you pick, we will support it! Now, what is it? '), read_integer(Nav),
+
+                (Nav = 1 -> write('Have fun! May the force be with you.'), nl, start;
+                Nav = 2 -> write('Transferring you to our Wiki...'), nl, wiki;
+                write('Till we meet again, then!'), nl, quit).
+
+
 /* Definisi Start Game */
 
-start    :-     write('Welcome'), nl,
-                write('Reveal your identity now, mysterious adventurer! '), read(Username), nl,
+start    :-     write('Welcome, mysterious adventurer. Reveal your identity now! '), read(Username), nl,
 
                 write('This is the list of classes you can be.'), nl, nl,
                 write('1. Swordsman: The classic, well-balanced fighter.'), nl, 
@@ -201,11 +225,11 @@ equipAccs(X) :-     equipAcc(X), !.
 unequipAccs(X) :-   unEquipAcc(X), !.
 
 /* Activate Potion */
-drink(Item) :- usePotion(Item), !.
+drink(Item) :-      usePotion(Item), !.
 
 /* Check Inventory */
-bag :-         inventory, !.
+bag :-              inventory, !.
 
 /* Discard Item */
-throw(X, Z) :-  discard(X, Z), !.
+throw(X, Z) :-      discard(X, Z), !.
 

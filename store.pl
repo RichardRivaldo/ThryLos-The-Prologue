@@ -13,7 +13,7 @@ visitStore  :-  write('Welcome to the shop adventurer!'), nl,
                 write('[2]. I\'m feeling good, let\'s catch some luck!'),nl,
                 write('[0]. Nah, I\'m just wandering around!'),nl,
 
-                gold(X,Balance),
+                gold(_,Balance),
                 write('Your current money : '),write(Balance),nl,
                 write('Pick an option : '), read_integer(ShopChoice),nl,
 

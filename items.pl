@@ -146,11 +146,13 @@ itemClass(theseus, god).
 
 /* Definisi Equip dan Unequip Weapon */
 equipWeapon(Item) :-    (isInInvent(Item), isWeapon(Item, Class),
-                        class(_, Class) -> retract(eqWeapon(_)), 
+                        class(_, Class) -> 
+                        (eqWeapon(Equipped), Equipped \== none -> unEquipWeapon(_);
+                        retract(eqWeapon(none))), 
                         asserta(eqWeapon(Item)), retract(stored(Item,X)), 
                         Y is X-1, asserta(stored(Item,Y)), boostWp(Item),
                         retract(usedSpace(Used)), NewUsed is Used - 1,
-                        asserta(usedSpace(NewUsed)), write('Item equipped. Feeling it now?'), nl;
+                        asserta(usedSpace(NewUsed)), write(Item), write(' equipped. Feeling it now?'), nl;
                         \+(isInInvent(Item)) -> write('Pathetic. Go Gacha this item now!'), nl;
                         write('This item is not suitable for you. Don\'t you know it, doe?'), nl).
 
@@ -161,16 +163,18 @@ unEquipWeapon(Item) :-  (eqWeapon(Item) -> nerfedWp(Item),
                         inventory(Used), Used < 100,
                         retract(eqWeapon(Item)), retract(usedSpace(Used)),
                         NewUsed is Used + 1, asserta(usedSpace(NewUsed)),
-                        write('Item unequipped. You become weaker now.'), nl;
+                        write(Item), write(' unequipped. You become weaker now.'), nl;
                         write('Ha! You don\'t even wear it right now.'), nl).
 
 /* Definisi Equip dan Unequip Armor */
-equipArmor(Item) :-    (isInInvent(Item), isArmor(Item, Class),
-                        class(_, Class) -> retract(eqArmor(_)),
+equipArmor(Item) :-     (isInInvent(Item), isArmor(Item, Class),
+                        class(_, Class) ->
+                        (eqArmor(Equipped), Equipped \== none -> unEquipArmor(_);
+                        retract(eqArmor(none))), 
                         asserta(eqArmor(Item)), retract(stored(Item,X)), 
                         Y is X-1, asserta(stored(Item,Y)), boostArm(Item),
                         retract(usedSpace(Used)), NewUsed is Used - 1,
-                        asserta(usedSpace(NewUsed)), write('Item equipped. Feeling it now?'), nl;
+                        asserta(usedSpace(NewUsed)), write(Item), write(' equipped. Feeling it now?'), nl;
                         \+(isInInvent(Item)) -> write('Pathetic. Go Gacha this item now!'), nl;
                         write('This item is not suitable for you. Don\'t you know it, doe?'), nl).
 
@@ -181,17 +185,19 @@ unEquipArmor(Item) :-   (eqArmor(Item) -> nerfedArm(Item),
                         inventory(Used), Used < 100,
                         retract(eqArmor(Item)), retract(usedSpace(Used)),
                         NewUsed is Used + 1, asserta(usedSpace(NewUsed)),
-                        write('Item unequipped. You become weaker now.'), nl;
+                        write(Item), write(' unequipped. You become weaker now.'), nl;
                         write('Ha! You don\'t even wear it right now.'), nl).
 
 /* Definisi Equip dan Unequip Accessory */
 
 equipAcc(Item) :-       (isInInvent(Item), isAccessory(Item, Class),
-                        class(_, Class) -> retract(eqAccessory(_)),
+                        class(_, Class) ->
+                        (eqAccessory(Equipped), Equipped \== none -> unEquipAcc(_);
+                        retract(eqAccessory(none))), 
                         asserta(eqAccessory(Item)), retract(stored(Item,X)), 
                         Y is X-1, asserta(stored(Item,Y)), boostAcc(Item),
                         retract(usedSpace(Used)), NewUsed is Used - 1,
-                        asserta(usedSpace(NewUsed)), write('Item equipped. Feeling it now?'), nl;
+                        asserta(usedSpace(NewUsed)), write(Item), write(' equipped. Feeling it now?'), nl;
                         \+(isInInvent(Item)) -> write('Pathetic. Go Gacha this item now!'), nl;
                         write('This item is not suitable for you. Don\'t you know it, doe?'), nl).
 
@@ -202,7 +208,7 @@ unEquipAcc(Item) :-     (eqAccessory(Item) -> nerfedAcc(Item),
                         inventory(Used), Used < 100,
                         retract(eqAccessory(Item)), retract(usedSpace(Used)),
                         NewUsed is Used + 1, asserta(usedSpace(NewUsed)),
-                        write('Item unequipped. You become weaker now.'), nl;
+                        write(Item), write(' unequipped. You become weaker now.'), nl;
                         write('Ha! You don\'t even wear it right now.'), nl).
 
 /* Definisi Use Potion */
