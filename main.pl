@@ -8,13 +8,26 @@
 :- include('leveling.pl').
 :- include('store.pl').
 
+/* Definisi InitGame */
+
+thrylos :-      write('    ______ __                  __               '), nl,
+                write('   /_  __// /_   _____ __  __ / /   ____   _____'), nl,
+                write('    / /  / __ \\ / ___// / / // /   / __ \\ / ___/'), nl,
+                write('   / /  / / / // /   / /_/ // /___/ /_/ /(__  )'), nl,
+                write('  /_/  /_/ /_//_/    \\__, //_____/\\____//____/'), nl,
+                write('                    /____/       The Prologue '), nl, nl,
+
+                write('                    `Vixere`                     '), nl,
+                mainMenu, !.
+
+
 /* Definisi Main Menu */
 
 mainMenu :-     write('              _'), nl,
                 write('  /\\/\\   __ _(_)_ __     /\\/\\   ___ _ __  _   _ '), nl,
                 write(' /    \\ / _` | | \'_ \\   /    \\ / _ \\ \'_ \\| | | |'), nl,
                 write('/ /\\/\\ \\ (_| | | | | | / /\\/\\ \\  __/ | | | |_| |'), nl,
-                write('\\/    \\/\__,_|_|_| |_| \\/    \\/\\___|_| |_|\\__,_|'), nl, nl,
+                write('\\/    \\/\\__,_|_|_| |_| \\/    \\/\\___|_| |_|\\__,_|'), nl, nl,
 
                 write('------------------------------------------------------'), nl,
                 write('                 1. Start Your Journey                '), nl,
@@ -23,20 +36,38 @@ mainMenu :-     write('              _'), nl,
                 write('                       2. WikiLog                     '), nl,
                 write('------------------------------------------------------'), nl,
                 write('------------------------------------------------------'), nl,
-                write('                    3. Quit The Game                  '), nl,
+                write('                        3. About                      '), nl,
+                write('------------------------------------------------------'), nl,
+                write('------------------------------------------------------'), nl,
+                write('                    4. Quit The Game                  '), nl,
                 write('------------------------------------------------------'), nl, nl,
 
                 write('Whatever you pick, we will support it! Now, what is it? '), read_integer(Nav),
 
-                (Nav = 1 -> write('Have fun! May the force be with you.'), nl, start;
-                Nav = 2 -> write('Transferring you to our Wiki...'), nl, wiki;
-                write('Till we meet again, then!'), nl, quit).
+                (Nav = 1 -> write('Have fun! May the force be with you.'), nl, nl, start, !;
+                Nav = 2 -> write('Transferring you to our Wiki...'), nl, wiki, !;
+                Nav = 3 -> write('Generating the Tales of ThryLos...'), nl, about, !;
+                quit, write('Till we meet again, then!'), nl, !).
+
+/* Definisi Quit Game */
+
+quit :-         write('We will wait for your biggest comeback later!'), nl,
+                retractall(started(_)), retractall(class(_, _)), retractall(health(_,_)),
+                retractall(attack(_,_)), retractall(defense(_,_)), retractall(magic(_,_)),
+                retractall(speed(_,_)), retractall(specialAttack(_,_)), retractall(gold(_,_)),
+                retractall(exp(_,_)), retractall(level(_,_)), retractall(eqWeapon(_)),
+                retractall(eqAccessory(_)), retractall(eqArmor(_)), retractall(usedSpace(_)),
+                retractall(stored(_,_)).
 
 
 /* Definisi Start Game */
 
-start    :-     write('Welcome, mysterious adventurer. Reveal your identity now! '), read(Username), nl,
+:- dynamic(started/1).
+start    :-     started(_), write('You had started your journey, young\'un. Finish it first!'), nl.
 
+start    :-     \+started(_), asserta(started(true)),
+                write('Welcome, mysterious adventurer. Reveal your identity now! '), read(Username), nl,
+                
                 write('This is the list of classes you can be.'), nl, nl,
                 write('1. Swordsman: The classic, well-balanced fighter.'), nl, 
                 write('2. Archer: Whoosh, a slinger with godspeed steps.'), nl, 
