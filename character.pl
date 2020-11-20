@@ -366,20 +366,21 @@ checkStats(Username) :- write('   ___ _                         __ _        _   
                         write('               |___/'), nl, nl,
 
                         write('---------Personal Information---------'), nl, nl,
-                        write('Username  : '), write(Username), nl,
-                        write('Class     : '), class(Username, Class), write(Class), nl,
-                        write('Level     : '), 
+                        write('Username       : '), write(Username), nl,
+                        write('Class          : '), class(Username, Class), write(Class), nl,
+                        write('Level          : '), 
                         (level(Username, 6), write('MAX LEVEL!'), nl;
                         level(Username, Level), Level =\= 6, write(Level), nl),
-                        write('EXP       : '), exp(Username, EXP), write(EXP), nl,
-                        write('Gold      : '), gold(Username, Gold), write(Gold), nl, nl,
+                        write('EXP            : '), exp(Username, EXP), write(EXP), nl,
+                        write('Gold           : '), gold(Username, Gold), write(Gold), nl, nl,
 
                         write('----------Player Statistics----------'), nl, nl,
-                        write('Health    : '), health(Username, Health), write(Health), nl,
-                        write('Attack    : '), attack(Username, Attack), write(Attack), nl,
-                        write('Magic     : '), magic(Username, Magic), write(Magic), nl,
-                        write('Defense   : '), defense(Username, Defense), write(Defense), nl,
-                        write('Speed     : '), speed(Username, Speed), write(Speed), nl, nl,
+                        write('Health         : '), health(Username, Health), write(Health), nl,
+                        write('Attack         : '), attack(Username, Attack), write(Attack), nl,
+                        write('Special Attack : '), specialattack(Username, SpAttack), write(SpAttack), nl,
+                        write('Magic          : '), magic(Username, Magic), write(Magic), nl,
+                        write('Defense        : '), defense(Username, Defense), write(Defense), nl,
+                        write('Speed          : '), speed(Username, Speed), write(Speed), nl, nl,
                         checkEquip.
 
 /* Definisi Check Inventory */
@@ -400,6 +401,6 @@ inventory :-            write('  _____                      _                   
 /* Definisi Check Equipment */
 
 checkEquip :-           write('--------------Equipments--------------'), nl, nl,
-                        write('Weapon    : |'), eqWeapon(X), write(X), write('|'), nl,
-                        write('Armor     : |'), eqArmor(Y), write(Y), write('|'), nl, 
-                        write('Accessory : |'), eqAccessory(Z), write(Z), write('|'), nl, nl.
+                        write('Weapon         : |'), eqWeapon(X), write(X), write('|'), nl,
+                        write('Armor          : |'), eqArmor(Y), write(Y), write('|'), nl, 
+                        write('Accessory      : |'), eqAccessory(Z), write(Z), write('|'), nl, nl.

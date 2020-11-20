@@ -42,30 +42,35 @@ addExp(X, Add) :-       exp(X, PrevEXP), retract(exp(X, PrevEXP)),
 /* Definisi Add Stats */
 
 addStats(X, NewLevel) :-    (NewLevel is 2 -> retract(attack(X, PAtt)), NAtt is PAtt + 2, asserta(attack(X, NAtt)),
+                            retract(specialattack(X, PSpAtt)), NPSpAtt is PSpAtt + 1, asserta(specialattack(X, NPSpAtt)),
                             retract(defense(X, PDef)), NDef is PDef + 2, asserta(defense(X, NDef)),
                             retract(health(X, PHeal)), NHeal is PHeal + 2, asserta(health(X, NHeal)),
                             retract(magic(X, PMag)), NMag is PMag + 2, asserta(magic(X, NMag)),
                             retract(speed(X, PSpd)), NSpd is PSpd + 2, asserta(speed(X, NSpd));
 
                             NewLevel is 3 -> retract(attack(X, PAtt)), NAtt is PAtt + 3, asserta(attack(X, NAtt)),
+                            retract(specialattack(X, PSpAtt)), NPSpAtt is PSpAtt + 2, asserta(specialattack(X, NPSpAtt)),
                             retract(defense(X, PDef)), NDef is PDef + 3, asserta(defense(X, NDef)),
                             retract(health(X, PHeal)), NHeal is PHeal + 3, asserta(health(X, NHeal)),
                             retract(magic(X, PMag)), NMag is PMag + 3, asserta(magic(X, NMag)),
                             retract(speed(X, PSpd)), NSpd is PSpd + 3, asserta(speed(X, NSpd));
                             
                             NewLevel is 4 -> retract(attack(X, PAtt)), NAtt is PAtt + 5, asserta(attack(X, NAtt)),
+                            retract(specialattack(X, PSpAtt)), NPSpAtt is PSpAtt + 3, asserta(specialattack(X, NPSpAtt)),
                             retract(defense(X, PDef)), NDef is PDef + 5, asserta(defense(X, NDef)),
                             retract(health(X, PHeal)), NHeal is PHeal + 5, asserta(health(X, NHeal)),
                             retract(magic(X, PMag)), NMag is PMag + 5, asserta(magic(X, NMag)),
                             retract(speed(X, PSpd)), NSpd is PSpd + 5, asserta(speed(X, NSpd));
 
                             NewLevel is 5 -> retract(attack(X, PAtt)), NAtt is PAtt + 7, asserta(attack(X, NAtt)),
+                            retract(specialattack(X, PSpAtt)), NPSpAtt is PSpAtt + 4, asserta(specialattack(X, NPSpAtt)),
                             retract(defense(X, PDef)), NDef is PDef + 7, asserta(defense(X, NDef)),
                             retract(health(X, PHeal)), NHeal is PHeal + 7, asserta(health(X, NHeal)),
                             retract(magic(X, PMag)), NMag is PMag + 7, asserta(magic(X, NMag)),
                             retract(speed(X, PSpd)), NSpd is PSpd + 7, asserta(speed(X, NSpd));
 
                             retract(attack(X, PAtt)), NAtt is PAtt + 10, asserta(attack(X, NAtt)),
+                            retract(specialattack(X, PSpAtt)), NPSpAtt is PSpAtt + 5, asserta(specialattack(X, NPSpAtt)),
                             retract(defense(X, PDef)), NDef is PDef + 10, asserta(defense(X, NDef)),
                             retract(health(X, PHeal)), NHeal is PHeal + 10, asserta(health(X, NHeal)),
                             retract(magic(X, PMag)), NMag is PMag + 10, asserta(magic(X, NMag)),
