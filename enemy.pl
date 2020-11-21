@@ -158,3 +158,146 @@ createZool(zool,3) :-       asserta(enemy(zool)),
                             asserta(speed(zool,12)),
                             asserta(goldEarned(zool,210)),
                             asserta(expEarned(zool,140)).
+
+/* Random Generate Jenis Enemy */
+
+generateSlime(slime) :-     random(1, 3, X),
+                            (X = 1 -> createSlime(slime,1);
+                            X = 2 -> createSlime(slime,2);
+                            X = 3 -> createSlime(slime,3)),
+                            write('                                            888 d8b'),nl,
+                            write('                  _                         888 Y8P'),nl,
+                            write('             ____/ \\____                    888'),nl,
+                            write('          __/            \\__        .d8888b 888 888 88888b.d88b.  .d88b.'),nl,
+                            write('       ~-                    -~     88K     888 888 888 "888 "88bd8P  Y8b'),nl,
+                            write('     /                         \\    "Y8888b.888 888 888  888  88888888888'),nl,
+                            write('   ~-                           -~       X88888 888 888  888  888Y8b.'),nl,
+                            write('  /                               \\  88888P`888 888 888  888  888 "Y8888'),nl,
+                            write(' /      _____            _____     \\'),nl,
+                            write('|         |                |        |'),nl,
+                            write('|         |                |        |'),nl,
+                            write('|                                   |'),nl,
+                            write('|                                   |'),nl,
+                            write(' \\           ----------           /'),nl,
+                            write('  \\                              /'),nl,
+                            write('   \\____________________________/'),nl,nl,
+
+                            write('EPIC BATTLE! You encounter a creepy slime!'),nl. 
+                        
+generateGoblin(goblin) :-   random(1, 3, X),
+                            (X = 1 -> createGoblin(goblin,1);
+                            X = 2 -> createGoblin(goblin,2);
+                            X = 3 -> createGoblin(goblin,3)),
+                            write('        ,      ,                         888     888 d8b'),nl,
+                            write('      / (.-""-.) \\                       888     888 Y8P'),nl,
+                            write('  |\\ \\/         \\/  /|                   888     888      '),nl,
+                            write('  | \\/   =.  .=  \\/  |    .d88b.  .d88b. 88888b. 888 888 88888b.'),nl,
+                            write('  \\(  \\   o||o   /  )/   d88P"88bd88""88b888 "88b888 888 888 "88b'),nl,
+                            write('    \\_, "-/  \\-" ,_/     888  888888  888888  888888 888 888  888'),nl,
+                            write('      /   |__|   \\       Y88b 888Y88..88P888 d88P888 888 888  888'),nl,
+                            write('      \\,___/\\___,/        "Y88888 "Y88P" 88888P" 888 888 888  888'),nl,
+                            write('  __ _\\ \\ |uu| / /_ __        888'),nl,
+                            write(' /`     \\ .--. /     `\\  Y8b d88P'),nl,
+                            write('/        "----"        \\   "Y88P"'),nl,nl,
+
+                            write('EPIC BATTLE! You encounter a stray goblin!'),nl.  
+                    
+generateWolf(wolf) :-       random(1, 3, X),
+                            (X = 1 -> createWolf(wolf,1);
+                            X = 2 -> createWolf(wolf,2);
+                            X = 3 -> createWolf(wolf,3)),
+                            write('                                       ,'),nl,
+                            write('                                    ,,/( ,,,,,,,,,,___,,'),nl,
+                            write('                                   )b     ,,,           "`,_,'),nl,
+                            write('                     888  .d888   /(     /                   `,'),nl,
+                            write('                     888 d88P"   L/7_/\\,|            /        \\'),nl,
+                            write('                     888 888      ,`      `,  \\    ,|          \\'),nl,
+                            write('888  888  888 .d88b. 888 888888    ,      /  /``````||      |\\  \\__,)))'),nl,
+                            write('888  888  888d88""88b888 888             /  / |      \\    \\  \\,,,,,,/'),nl,
+                            write('888  888  888888  888888 888            |  /  |       \\   )/'),nl,
+                            write('Y88b 888 d88PY88..88P888 888            \\(|  )     ,,//   /'),nl,
+                            write(' "Y8888888P"  "Y88P" 888 888             `_)_/     ((___/" '),nl,nl,
+
+                            write('EPIC BATTLE! You encounter a ferocious wolf!'),nl.                    
+
+generateSpider(spider) :-   random(1, 3, X),
+                            (X = 1 -> createSpider(spider,1);
+                            X = 2 -> createSpider(spider,2);
+                            X = 3 -> createSpider(spider,3)),
+                            write('     ____                         ,'),nl,
+                            write('    /---.`.__                ____//'),nl,
+                            write('         `--.\\             //---`'),nl,
+                            write('    _______  \\\\          // '),nl,
+                            write('  /.------. \\ \\\\       //  ______'),nl,
+                            write(' //  ___   \\ \\||/|\\  //  _/_----.\\_ '),nl,
+                            write('|/  /.-.\\    \\\\|< >|// _/.`..\\  `--`                   d8b     888   '),nl,
+                            write('   //   \\.\\_  \\`.|.`/ /_/ /  \\\\                        Y8P     888    '),nl,
+                            write('  //     \\_  \\/" ` ~\\-`.-`    \\\\                               888             '),nl,
+                            write(' //       `-._| :H: |`-.__     \\\\      .d8888b 88888b. 888 .d88888 .d88b. 888d888  '),nl,
+                            write('//           (/`===`\\)`-._\\     ||     88K     888 "88b888d88" 888d8P  Y8b888P"       '),nl,
+                            write('||                        \\\\     \\\\    "Y8888b.888  888888888  88888888888888         '),nl,
+                            write('||                         \\\\               X88888 d88P888Y88b 888Y8b.    888  '),nl,
+                            write('|/                          \\\\          88888P`88888P" 888 "Y88888 "Y8888 888     '),nl,
+                            write('                             ||                888        '),nl,
+                            write('                             ||                888         '),nl,
+                            write('                             \\\\                888         '),nl,nl,
+
+                            write('EPIC BATTLE! You encounter a humongous spider!'),nl. 
+
+
+generateZool(zool) :-       random(1, 3, X),
+                            (X = 1 -> createZool(zool,1);
+                            X = 2 -> createZool(zool,2);
+                            X = 3 -> createZool(zool,3)),
+                            write('                         888'),nl,
+                            write('                         888'),nl,
+                            write('88888888                 888         /\\______  __'),nl,
+                            write('88888888 .d88b.  .d88b.  888        /-~     ,^~ / __n'),nl,
+                            write('   d88P d88""88bd88""88b 888       / ,---x /_.-"L/__,\\'),nl,
+                            write('  d88P  888  888888  888 888      /-".---.\\_.-`/!"  \\ \\'),nl,
+                            write(' d88P   Y88..88PY88..88P 8888888  0\\/0___/   x` /    ) |'),nl,
+                            write('8888     "Y88P"  "Y88P"  8888888  \\.______.-`_.{__.-"_.^'),nl,
+                            write('8888888888888                      `x____,.-",-~( .-"'),nl,
+                            write('8888888888888                         _.-| ,^.-~ "\\'),nl,
+                            write('                                 __.-~_,-|/\\/     `i'),nl,
+                            write('                                / u.-~ .-{\\/     .-^--.'),nl,
+                            write('                                \\/   v~ ,-^x.____}--r |'),nl,
+                            write('                                    / /"            | |'),nl,
+                            write('                                  _/_/              !_l_'),nl,
+                            write('                                o~_//)             (_\\\\_~o'),nl,nl,
+
+                            write('EPIC BATTLE! You encounter a mighty zool!'),nl.           
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    
+    
+    
+    
+    
+
+    
+            
+ 
+   
+     
+     
+    
+                                
+                                
+   
