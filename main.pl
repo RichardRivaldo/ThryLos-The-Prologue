@@ -7,6 +7,7 @@
 :- include('items.pl').
 :- include('leveling.pl').
 :- include('store.pl').
+:- include('map.pl').
 
 /* Definisi InitGame */
 
@@ -66,6 +67,12 @@ quit :-         write('We will wait for your biggest comeback later!'), nl,
 start    :-     started(_), write('You had started your journey, young\'un. Finish it first!'), nl.
 
 start    :-     \+started(_), asserta(started(true)),
+                write('Initiazing The World of ThryLos..'), initMap, nl,
+                write('Preparing character modifications..'), nl,
+                write('Producing powerful items and potions..'), nl,
+                write('Generating quests that will save humanity..'), nl,
+                write('All preparations completed.'), nl, nl,
+
                 write('Welcome, mysterious adventurer. Reveal your identity now! '), read(Username), nl,
                 
                 write('This is the list of classes you can be.'), nl, nl,
@@ -264,3 +271,15 @@ bag :-              inventory, !.
 /* Discard Item */
 throw(X, Z) :-      discard(X, Z), !.
 
+/* Melihat Map */
+
+map :-              write('Activating the NVGXor to see the map..'), nl, nl,
+                    map(0, 15), nl,
+                    write('-----------------------------------------------------------------------------------------'), nl,
+                    write('                                   Legends of ThryLos                                    '), nl,
+                    write('P : Your Current Position. You should know where you are!'), nl,
+                    write('Q : The Quest Creator. All about Quest, you should do that here.'), nl,
+                    write('S : The Almighty ThryStore. Spend your money on equipments and potions here!'), nl,
+                    write('D : Where The Pinnacle of Dragons, ApeX resides. Quickly take him down!'), nl,
+                    write('T : Ever heard of Teleport? Yeah, it also exists here. Don\'t be surprised, duh!'), nl,
+                    write('-----------------------------------------------------------------------------------------'), nl.
