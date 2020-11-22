@@ -133,7 +133,7 @@ about :-        write('   _   _                 _   '), nl,
                 write('IT IS ALL ON YOU!'), nl, nl,
                 write('------------------------------------------------------------------------------------------------------'), nl, nl,
                 write('The word `ThryLos` comes from Greek, meaning `Legend`.'), nl,
-                write('`Vixere` comes from Roman Latin, meaning `They live`, used after the execution of someone.'), nl, nl;
+                write('`Vixere` comes from Roman Latin, meaning `They live`, used after the execution of someone.'), nl;
                 write('Curiosity is needed in this world. Even so, we will gladly wait for you to check the Tales of ThryLos!'), nl).
                 
                 

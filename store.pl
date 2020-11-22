@@ -233,7 +233,7 @@ randomDemonGrade:-
 randomMamonGrade:-
     choose([adamantite_sword, flash_bow, bright_wand, deadly_knife, sutra_leash, wukong, harmonia], A),nl,
     write('Item Name : '),write(A),nl,
-    write('Grade     : Demon'),nl,
+    write('Grade     : Mamon'),nl,
     saveItem(A).
 
 /* Definisi random untuk lucifer grade */
@@ -241,7 +241,7 @@ randomMamonGrade:-
 randomLuciferGrade:-
     choose([mikazuki, achilles, tarot, ezio, lung, diomedes, amaterasu], A),nl,
     write('Item Name : '),write(A),nl,
-    write('Grade     : Demon'),nl,
+    write('Grade     : Lucifer'),nl,
     saveItem(A).
 
 /* Definisi random untuk god grade */
@@ -249,7 +249,7 @@ randomLuciferGrade:-
 randomGodGrade:-
     choose([exCalibur, apollo, odyssey, scythe, ouroboros, beowulf, theseus], A),nl,
     write('Item Name : '),write(A),nl,
-    write('Grade     : Demon'),nl,
+    write('Grade     : God'),nl,
     saveItem(A).
 
 /* Definisi random untuk mengambil elemen dari list secara acak */
