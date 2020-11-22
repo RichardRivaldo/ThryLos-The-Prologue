@@ -8,6 +8,7 @@
 :- include('leveling.pl').
 :- include('store.pl').
 :- include('map.pl').
+:- include('enemy.pl').
 
 /* Definisi InitGame */
 

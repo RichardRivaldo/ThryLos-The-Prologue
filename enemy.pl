@@ -193,7 +193,7 @@ generateSlime   :-          random(1, 100, X),
                             write('|         |                |        |'),nl,
                             write('|                                   |'),nl,
                             write('|                                   |'),nl,
-                            write(' \\           ----------           /'),nl,
+                            write(' \\            ---------           /'),nl,
                             write('  \\                              /'),nl,
                             write('   \\____________________________/'),nl,nl,
 
@@ -337,6 +337,7 @@ isEncounter         :-  random(1, 100, X),
                             write('.'),nl,
                             write('.'),nl,
                             write('.'),nl,
+                            random(1, 100, C),
                             generateEnemy(C)).
 
 
