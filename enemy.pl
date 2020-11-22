@@ -364,7 +364,7 @@ generateApex    :-          createApex,
                             write('Speed          : '), speed(apex, Speed), write(Speed), nl, nl,
                             write('--------------------------------------'), nl.          
 
-generateEnemy(C)    :-  write('There is something in the bush. Wait, it is coming over here!'),nl,
+generateEnemy(C)    :-  write('There is something in the bush. Wait, it is coming over here!'),nl, nl,
                         zone(X),
                         ( X = 1 ->
                           random(1, 100, C),
@@ -391,8 +391,7 @@ isEncounter         :-  random(1, 100, X),
                             write('.'),nl,
                             write('.'),nl,
                             write('.'),nl,
-                            random(1, 100, C),
-                            generateEnemy(C)).
+                            generateEnemy(_)).
 
 dungeon       :-        generateApex.
 

@@ -45,6 +45,7 @@ map(SX, SY) :-          (rightZone(SX, SY) -> write('>');
 
 validMove(PrevX, PrevY, NewX, NewY) :-  (store(NewX, NewY) -> write('Don\'t just stand there. Come enter The Almighty ThryStore!'), nl, nl, visitStore;
                                         teleport(NewX, NewY) -> write('Entering The Registrated Dimensional Gates..'),  nl, nl, teleport;
+                                        dungeon(NewX, NewY) -> dungeon;
                                         rightZone(NewX, NewY) -> retract(zone(CZone)), NZone is CZone + 1, asserta(zone(NZone)), switchZoneR, !,
                                         write('Entering Next Zone..'), nl;
                                         leftZone(NewX, NewY) -> retract(zone(X)), XNew is X - 1, asserta(zone(XNew)), switchZoneL, !,
@@ -83,6 +84,7 @@ s :-                    retract(player(PrevX, PrevY)), NewY is PrevY - 1,
                         validMove(PrevX, PrevY, PrevX, NewY).
                         
 /* Definisi Init Map */
+/* Nilai yang negatif adalah dummy */
 
 :- dynamic(store/2).
 :- dynamic(dungeon/2).
@@ -107,6 +109,7 @@ initMap1 :-             generate(15,15), asserta(zone(1)),
                         asserta(rightZone(15, 8)), asserta(isTaken(15, 8)),
 
                         asserta(leftZone(-1,-1)), asserta(isTaken(-1,-1)),
+                        asserta(dungeon(-2,-2)), asserta(isTaken(-2,-2)),
                         asserta(teleport(-3,-3)), asserta(isTaken(-3,-3)).
 
 initMap2 :-             generate(15,15),
@@ -126,7 +129,9 @@ initMap2 :-             generate(15,15),
                         asserta(innerWall(11, 3)), asserta(isTaken(11, 2)),
                         asserta(innerWall(3, 11)), asserta(isTaken(3, 11)),
                         asserta(rightZone(15, 3)), asserta(isTaken(15, 3)),
-                        asserta(leftZone(0, 12)), asserta(isTaken(0, 12)).
+                        asserta(leftZone(0, 12)), asserta(isTaken(0, 12)),
+
+                        asserta(dungeon(-1,-1)), asserta(isTaken(-1,-1)).
 
 initMap3 :-             generate(15, 15),
                         asserta(player(2, 10)), asserta(isTaken(2, 10)),

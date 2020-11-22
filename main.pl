@@ -284,7 +284,7 @@ map :-              write('Activating the NVGXor to see the map..'), nl, nl,
                     write('P : Your Current Position. You should know where you are!'), nl,
                     write('Q : The Quest Creator. All about Quest, you should do that here.'), nl,
                     write('S : The Almighty ThryStore. Spend your money on equipments and potions here!'), nl,
-                    write('D : Where The Pinnacle of Dragons, ApeX resides. Quickly take him down!'), nl,
                     write('T : Ever heard of Teleport? Yeah, it also exists here. Don\'t be surprised, duh!'), nl,
+                    write('D : Where The Pinnacle of Dragons, ApeX resides. Quickly take him down!'), nl,
                     write('* If you don\'t see any one of these, don\'t worry. You will find it later so keep going!'), nl,
                     write('-----------------------------------------------------------------------------------------'), nl.
