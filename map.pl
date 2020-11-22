@@ -126,7 +126,7 @@ teleport :-             write('-------------------------------------------------
                         Choice == yes -> write('Enter the X-Absis position that you desired: '), read_integer(XT),
                         write('Enter the Y-Ordinat position that you desired: '), read_integer(YT), nl,
                         (isWall(XT, YT) -> write('We can\'t take the risk by transporting you to the wall!'), fail, nl;
-                        innerWall(XT, YT) -> write('The Wall itself is thorny. We don\'t want our hero to be hurt!'), nl,
+                        innerWall(XT, YT) -> write('The Wall itself is thorny. We don\'t want our hero to be hurt!'), nl;
                         (class(User, _), gold(User, Gold), Gold >= 20 -> write('Leggo then. Entering the gates..'), nl,
                         player(PrevX, PrevY), retract(player(PrevX, PrevY)), asserta(player(XT, YT)), 
                         retract(gold(User, Gold)), NewGold is Gold - 20, asserta(gold(User, NewGold)),
