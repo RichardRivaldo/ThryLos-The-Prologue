@@ -27,7 +27,9 @@ isWall(X, Y) :-         Y =:= 0, coordinate(X, Y).
 
 /* Definisi Show Map */
 
-map(SX, SY) :-          (isWall(SX, SY) -> write('#');
+map(SX, SY) :-          (rightZone(SX, SY) -> write('>');
+                        leftZone(SX, SY) -> write('<');
+                        isWall(SX, SY) -> write('#');
                         player(SX, SY) -> write('P');
                         store(SX, SY) -> write('S');
                         dungeon(SX, SY) -> write('D');
@@ -43,6 +45,10 @@ map(SX, SY) :-          (isWall(SX, SY) -> write('#');
 
 validMove(PrevX, PrevY, NewX, NewY) :-  (store(NewX, NewY) -> write('Don\'t just stand there. Come enter The Almighty ThryStore!'), nl, nl, visitStore;
                                         teleport(NewX, NewY) -> write('Entering The Registrated Dimensional Gates..'),  nl, nl, teleport;
+                                        rightZone(NewX, NewY) -> retract(zone(CZone)), NZone is CZone + 1, asserta(zone(NZone)), switchZoneR, !,
+                                        write('Entering Next Zone..'), nl;
+                                        leftZone(NewX, NewY) -> retract(zone(X)), XNew is X - 1, asserta(zone(XNew)), switchZoneL, !,
+                                        write('Going to the Previous Zone..'), nl;
                                         isWall(NewX, NewY), taken(NewX, NewY) ->
                                         retract(player(NewX,NewY)), asserta(player(PrevX, PrevY)), 
                                         write('OOPS! Mirror mirror on the wall, CAN YOU SEE THE HUGE WALL OF THRYLOS?'), 
@@ -83,8 +89,46 @@ s :-                    retract(player(PrevX, PrevY)), NewY is PrevY - 1,
 :- dynamic(quest/2).
 :- dynamic(teleport/2).
 :- dynamic(innerWall/2).
+:- dynamic(zone/1).
 
-initMap :-              generate(15, 15), 
+initMap1 :-             generate(15,15), asserta(zone(1)),
+                        asserta(player(6, 13)), asserta(isTaken(6, 13)),
+                        asserta(quest(4, 6)), asserta(isTaken(4, 6)),
+                        asserta(store(11, 9)), asserta(isTaken(11, 9)),
+                        asserta(innerWall(7, 5)), asserta(isTaken(7, 5)),
+                        asserta(innerWall(8, 5)), asserta(isTaken(8, 5)),
+                        asserta(innerWall(13, 12)), asserta(isTaken(13, 12)),
+                        asserta(innerWall(13, 13)), asserta(isTaken(13, 13)),
+                        asserta(innerWall(12, 13)), asserta(isTaken(12, 13)),
+                        asserta(innerWall(3, 10)), asserta(isTaken(3, 10)),
+                        asserta(innerWall(11, 3)), asserta(isTaken(11, 2)),
+                        asserta(innerWall(3, 11)), asserta(isTaken(3, 11)),
+                        asserta(innerWall(3, 2)), asserta(isTaken(3, 2)),
+                        asserta(rightZone(15, 8)), asserta(isTaken(15, 8)),
+
+                        asserta(leftZone(-1,-1)), asserta(isTaken(-1,-1)),
+                        asserta(teleport(-3,-3)), asserta(isTaken(-3,-3)).
+
+initMap2 :-             generate(15,15),
+                        asserta(player(1, 12)), asserta(isTaken(1, 12)),
+                        asserta(quest(12, 13)), asserta(isTaken(12, 13)),
+                        asserta(store(4, 5)), asserta(isTaken(4, 5)),
+                        asserta(teleport(12, 4)), asserta(isTaken(12, 4)),
+                        asserta(innerWall(7, 5)), asserta(isTaken(7, 5)),
+                        asserta(innerWall(8, 5)), asserta(isTaken(8, 5)),
+                        asserta(innerWall(11, 9)), asserta(isTaken(11, 9)),
+                        asserta(innerWall(10, 9)), asserta(isTaken(10, 9)),
+                        asserta(innerWall(10, 8)), asserta(isTaken(10, 8)),
+                        asserta(innerWall(12, 13)), asserta(isTaken(12, 13)),
+                        asserta(innerWall(4, 2)), asserta(isTaken(4, 2)),
+                        asserta(innerWall(7, 6)), asserta(isTaken(7, 6)),
+                        asserta(innerWall(4, 9)), asserta(isTaken(4, 9)),
+                        asserta(innerWall(11, 3)), asserta(isTaken(11, 2)),
+                        asserta(innerWall(3, 11)), asserta(isTaken(3, 11)),
+                        asserta(rightZone(15, 3)), asserta(isTaken(15, 3)),
+                        asserta(leftZone(0, 12)), asserta(isTaken(0, 12)).
+
+initMap3 :-             generate(15, 15),
                         asserta(player(2, 10)), asserta(isTaken(2, 10)),
                         asserta(quest(5, 7)), asserta(isTaken(5, 7)),
                         asserta(store(4, 13)), asserta(isTaken(4, 13)),
@@ -112,8 +156,10 @@ initMap :-              generate(15, 15),
                         asserta(innerWall(11, 6)), asserta(isTaken(11, 6)),
                         asserta(innerWall(11, 5)), asserta(isTaken(11, 5)),
                         asserta(innerWall(11, 3)), asserta(isTaken(11, 3)),
+                        asserta(leftZone(0, 4)), asserta(isTaken(0, 4)),
+                        asserta(rightZone(16,16)), asserta(isTaken(16, 16)). 
 
-                        write('Successfully generating the Territory of ThryLos.'), nl.
+/* Definisi Teleport */
 
 teleport :-             write('--------------------------------------------------------------------'), nl,
                         write('               ThryLos Official Dimensional Gates'), nl,
@@ -125,7 +171,11 @@ teleport :-             write('-------------------------------------------------
                         (Choice == no -> write('We respect your choice. Come back when you need us!'), nl;
                         Choice == yes -> write('Enter the X-Absis position that you desired: '), read_integer(XT),
                         write('Enter the Y-Ordinat position that you desired: '), read_integer(YT), nl,
-                        (isWall(XT, YT) -> write('We can\'t take the risk by transporting you to the wall!'), fail, nl;
+                        (rightZone(XT, YT) -> write('We cannot follow you to the other zone, but good luck!'), nl, 
+                        retract(gold(User, Gold)), NewGold is Gold - 20, asserta(gold(User, NewGold)), validMove(PrevX, PrevY, XT, YT);
+                        leftZone(XT, YT) -> write('We cannot follow you to the other zone, but good luck!'), nl, 
+                        retract(gold(User, Gold)), NewGold is Gold - 20, asserta(gold(User, NewGold)), validMove(PrevX, PrevY, XT, YT);
+                        isWall(XT, YT) -> write('We can\'t take the risk by transporting you to the wall!'), fail, nl;
                         innerWall(XT, YT) -> write('The Wall itself is thorny. We don\'t want our hero to be hurt!'), nl;
                         (class(User, _), gold(User, Gold), Gold >= 20 -> write('Leggo then. Entering the gates..'), nl,
                         player(PrevX, PrevY), retract(player(PrevX, PrevY)), asserta(player(XT, YT)), 
@@ -134,3 +184,30 @@ teleport :-             write('-------------------------------------------------
                         write('Successfully teleported. May we meet again, travelers. Goodbye!'), nl, nl,
                         validMove(PrevX, PrevY, XT, YT);
                         write('Too bad, we want to travel with you but you don\'t have enough money. Come back later!'), nl))).
+
+
+/* Definisi Switch Zone */
+
+switchZoneR :-      retractall(player(_,_)),
+                    retractall(store(_,_)), retractall(leftZone(_,_)),
+                    retractall(rightZone(_,_)), retractall(store(_,_)),
+                    retractall(dungeon(_,_)), retractall(quest(_,_)),
+                    retractall(innerWall(_,_)), retractall(teleport(_,_)),
+                    retractall(isTaken(_,_)), zone(X),
+                    (X = 2 -> initMap2, retract(player(_,_)), leftZone(LZX, LZY), 
+                    PZX is LZX + 1, asserta(player(PZX, LZY)); 
+                    initMap3, retract(player(_,_)), leftZone(LZX, LZY), 
+                    PZX is LZX + 1, asserta(player(PZX, LZY))).
+
+switchZoneL :-      retractall(player(_,_)),
+                    retractall(store(_,_)), retractall(leftZone(_,_)),
+                    retractall(rightZone(_,_)), retractall(store(_,_)),
+                    retractall(dungeon(_,_)), retractall(quest(_,_)),
+                    retractall(innerWall(_,_)), retractall(teleport(_,_)),
+                    retractall(isTaken(_,_)), zone(X),
+                    (X = 1 -> initMap1, 
+                    retract(player(_,_)), rightZone(RZX, RZY), 
+                    PZX is RZX - 1, asserta(player(PZX, RZY)); 
+                    initMap2,
+                    retract(player(_,_)), rightZone(RZX, RZY), 
+                    PZX is RZX - 1, asserta(player(PZX, RZY))).

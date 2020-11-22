@@ -59,7 +59,10 @@ quit :-         write('We will wait for your biggest comeback later!'), nl,
                 retractall(speed(_,_)), retractall(specialAttack(_,_)), retractall(gold(_,_)),
                 retractall(exp(_,_)), retractall(level(_,_)), retractall(eqWeapon(_)),
                 retractall(eqAccessory(_)), retractall(eqArmor(_)), retractall(usedSpace(_)),
-                retractall(stored(_,_)), retractall(player(_,_)).
+                retractall(stored(_,_)), retractall(player(_,_)), retractall(store(_,_)), 
+                retractall(leftZone(_,_)), retractall(rightZone(_,_)), retractall(store(_,_)),
+                retractall(dungeon(_,_)), retractall(quest(_,_)), retractall(innerWall(_,_)), 
+                retractall(teleport(_,_)), retractall(isTaken(_,_)).
 
 
 /* Definisi Start Game */
@@ -68,7 +71,7 @@ quit :-         write('We will wait for your biggest comeback later!'), nl,
 start    :-     started(_), write('You had started your journey, young\'un. Finish it first!'), nl.
 
 start    :-     \+started(_), asserta(started(true)),
-                write('Initializing The World of ThryLos..'), nl, initMap,
+                write('Initializing The World of ThryLos..'), nl, initMap1,
                 write('Preparing character modifications..'), nl,
                 write('Producing powerful items and potions..'), nl,
                 write('Generating quests that will save humanity..'), nl,
@@ -272,7 +275,7 @@ bag :-              inventory, !.
 /* Discard Item */
 throw(X, Z) :-      discard(X, Z), !.
 
-/* Melihat Map */
+/* Show Map */
 
 map :-              write('Activating the NVGXor to see the map..'), nl, nl,
                     map(0, 15), nl,
@@ -283,4 +286,5 @@ map :-              write('Activating the NVGXor to see the map..'), nl, nl,
                     write('S : The Almighty ThryStore. Spend your money on equipments and potions here!'), nl,
                     write('D : Where The Pinnacle of Dragons, ApeX resides. Quickly take him down!'), nl,
                     write('T : Ever heard of Teleport? Yeah, it also exists here. Don\'t be surprised, duh!'), nl,
+                    write('* If you don\'t see any one of these, don\'t worry. You will find it later so keep going!'), nl,
                     write('-----------------------------------------------------------------------------------------'), nl.

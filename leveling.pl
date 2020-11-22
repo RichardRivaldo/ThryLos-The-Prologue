@@ -8,31 +8,31 @@ addExp(X, Add) :-       exp(X, PrevEXP), retract(exp(X, PrevEXP)),
                         level(X, Level),
                         write(Add), write(' Experience earned!'), nl,
                         
-                        (Level < 2, NewEXP >= 100 -> retract(level(X, _)),
+                        (Level < 2, NewEXP >= 2500 -> retract(level(X, _)),
                         asserta(level(X, 2)),
                         write('You just leveled up to level 2!'), nl,
                         addStats(X, 2);
                         write('')),
 
-                        (Level < 3, NewEXP >= 250 -> retract(level(X, _)),
+                        (Level < 3, NewEXP >= 7500 -> retract(level(X, _)),
                         asserta(level(X, 3)),
                         write('You just leveled up to level 3!'), nl,
                         addStats(X, 3);
                         write('')),
 
-                        (Level < 4, NewEXP >= 500 -> retract(level(X, _)),
+                        (Level < 4, NewEXP >= 12500-> retract(level(X, _)),
                         asserta(level(X, 4)),
                         write('You just leveled up to level 4!'), nl,
                         addStats(X, 4);
                         write('')),
 
-                        (Level < 5, NewEXP >= 750 -> retract(level(X, _)),
+                        (Level < 5, NewEXP >= 22500 -> retract(level(X, _)),
                         asserta(level(X, 5)),
                         write('You just leveled up to level 5!'), nl,
                         addStats(X, 5);
                         write('')),
 
-                        (NewEXP >= 2000 -> retract(level(X, _)),
+                        (NewEXP >= 35000 -> retract(level(X, _)),
                         asserta(level(X, 6)), addStats(X, 6),
                         write('You hit max level! Your name shall be engraved in history!'), nl;
                         write('')),
