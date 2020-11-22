@@ -154,7 +154,8 @@ visitStore  :-  write('Welcome to the shop adventurer!'), nl,
                         (
                             exitMessage
                         )
-                    )
+                    );
+                ShopChoice = 0 -> exitMessage
                 ),
 
                 write('Hope you are satisfied with your luck!'),nl,

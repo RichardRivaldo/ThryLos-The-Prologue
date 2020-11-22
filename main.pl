@@ -58,7 +58,7 @@ quit :-         write('We will wait for your biggest comeback later!'), nl,
                 retractall(speed(_,_)), retractall(specialAttack(_,_)), retractall(gold(_,_)),
                 retractall(exp(_,_)), retractall(level(_,_)), retractall(eqWeapon(_)),
                 retractall(eqAccessory(_)), retractall(eqArmor(_)), retractall(usedSpace(_)),
-                retractall(stored(_,_)).
+                retractall(stored(_,_)), retractall(player(_,_)).
 
 
 /* Definisi Start Game */
@@ -67,7 +67,7 @@ quit :-         write('We will wait for your biggest comeback later!'), nl,
 start    :-     started(_), write('You had started your journey, young\'un. Finish it first!'), nl.
 
 start    :-     \+started(_), asserta(started(true)),
-                write('Initiazing The World of ThryLos..'), initMap, nl,
+                write('Initializing The World of ThryLos..'), nl, initMap,
                 write('Preparing character modifications..'), nl,
                 write('Producing powerful items and potions..'), nl,
                 write('Generating quests that will save humanity..'), nl,
