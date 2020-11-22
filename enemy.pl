@@ -174,6 +174,14 @@ createZool(3) :-        asserta(enemy(zool)),
                         asserta(expEarned(zool,140)),
                         asserta(isDead(no)).
 
+createApex    :-        asserta(enemy(apex)),
+                        asserta(health(apex,40)),
+                        asserta(attack(apex,40)),
+                        asserta(magic(apex,40)),
+                        asserta(defense(apex,40)),
+                        asserta(speed(apex,40)),
+                        asserta(isApexDead(no)).
+
 /* Random Generate Jenis Enemy */
 
 generateSlime   :-          random(1, 100, X),
@@ -315,15 +323,61 @@ generateZool    :-          random(1, 100, X),
                             write('Attack         : '), attack(zool, Attack), write(Attack), nl,
                             write('Defense        : '), defense(zool, Defense), write(Defense), nl,
                             write('Speed          : '), speed(zool, Speed), write(Speed), nl, nl,
-                            write('--------------------------------------'), nl.           
+                            write('--------------------------------------'), nl.  
 
+generateApex    :-          createApex,
+                            write('   .:\'                                  `:. '), nl, 
+                            write('  ::\'                                    `::   '), nl,
+                            write(' :: :.                                  .: ::  '), nl,
+                            write('  `:. `:.             .             .:\'  .:\''), nl,
+                            write('   `::. `::           !           ::\' .::\' '), nl,
+                            write('       `::.`::.    .\' ! `.    .::\'.::\' '), nl,
+                            write('         `:.  `::::\'\':!:``::::\'   ::\' '), nl,
+                            write('         :\'*:::.  .:\' ! `:.  .:::*`:   '), nl,
+                            write('        :: HHH::.   ` ! \'   .::HHH ::   '), nl,
+                            write('       ::: `H TH::.  `!\'  .::HT H\' :::'), nl,
+                            write('       ::..  `THHH:`:   :\':HHHT\'  ..::  '), nl,
+                            write('       `::      `T: `. .\' :T\'      ::\'  '), nl,
+                            write('         `:. .   :         :   . .:\''), nl,
+                            write('           `::\'               `::\''), nl,
+                            write('             :\'  .`.  .  .\'.  `: '), nl,
+                            write('             :\' ::.       .:: `:  '), nl,
+                            write('             :\' `:::     :::\' `: '), nl,
+                            write('              `.  ``     \'\'  .\' '), nl,
+                            write('               :`...........\': '), nl,
+                            write('               ` :`.     .\': \''), nl,
+                            write('                `:  `"""\'  :\''), nl, nl,
+                            write(' ,adPPYYba, 8b,dPPYba,   ,adPPYba, 8b,     ,d8'),nl,
+                            write(' ""     `Y8 88P`    "8a a8P_____88  `Y8, ,8P`'),nl,
+                            write(' ,adPPPPP88 88       d8 8PP"""""""    )888('),nl,
+                            write(' 88,    ,88 88b,   ,a8" "8b,   ,aa  ,d8" "8b,'),nl,
+                            write(' `"8bbdP"Y8 88`YbbdP"`   `"Ybbd8"` 8P`     `Y8'),nl,
+                            write('           88'),nl,
+                            write('           88'),nl,nl,
+
+                            write('FINALLY! The fate of ThryLos is in your hands!'),nl,nl,
+
+                            write('-----------Enemy Statistics-----------'), nl, nl,
+                            write('Health         : '), health(apex, Health), write(Health), nl,
+                            write('Attack         : '), attack(apex, Attack), write(Attack), nl,
+                            write('Defense        : '), defense(apex, Defense), write(Defense), nl,
+                            write('Speed          : '), speed(apex, Speed), write(Speed), nl, nl,
+                            write('--------------------------------------'), nl.          
 
 generateEnemy(C)    :-  write('There is something in the bush. Wait, it is coming over here!'),nl,
-                        ( C =< 30  -> generateSlime;
-                          C =< 55  -> generateGoblin;
-                          C =< 75  -> generateWolf;
-                          C =< 90  -> generateSpider;
-                          C =< 100 -> generateZool ).
+                        zone(X),
+                        ( X = 1 ->
+                          random(1, 100, C),
+                          ( C =< 60 -> generateSlime;
+                            C =< 100 -> generateGoblin );
+                          X = 2 ->
+                          random(1, 100, C),
+                          ( C =< 60 -> generateWolf;
+                            C =< 100 -> generateSpider );
+                          X = 3 ->
+                          random(1, 100, C),
+                          ( C =< 75 -> generateSpider;
+                            C =< 100 -> generateZool ) ).
 
 isEncounter         :-  random(1, 100, X),
                         ( X =< 70 -> 
@@ -340,10 +394,7 @@ isEncounter         :-  random(1, 100, X),
                             random(1, 100, C),
                             generateEnemy(C)).
 
-
-
-
-
+dungeon       :-        generateApex.
 
 
 
