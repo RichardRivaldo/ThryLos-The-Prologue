@@ -176,10 +176,10 @@ createZool(3) :-        asserta(enemy(zool)),
 
 /* Random Generate Jenis Enemy */
 
-generateSlime   :-          random(1, 3, X),
-                            (X = 1 -> createSlime(1);
-                            X = 2 -> createSlime(2);
-                            X = 3 -> createSlime(3)),
+generateSlime   :-          random(1, 100, X),
+                            (X =< 45 -> createSlime(1);
+                            X =< 75 -> createSlime(2);
+                            X =< 100 -> createSlime(3)),
                             write('                                            888 d8b'),nl,
                             write('                  _                         888 Y8P'),nl,
                             write('             ____/ \\____                    888'),nl,
@@ -206,10 +206,10 @@ generateSlime   :-          random(1, 3, X),
                             write('Speed          : '), speed(slime, Speed), write(Speed), nl, nl,
                             write('--------------------------------------'), nl.
                         
-generateGoblin  :-          random(1, 3, X),
-                            (X = 1 -> createGoblin(1);
-                            X = 2 -> createGoblin(2);
-                            X = 3 -> createGoblin(3)),
+generateGoblin  :-          random(1, 100, X),
+                            (X =< 45 -> createGoblin(1);
+                            X =< 75 -> createGoblin(2);
+                            X =< 100 -> createGoblin(3)),
                             write('        ,      ,                         888     888 d8b'),nl,
                             write('      / (.-""-.) \\                       888     888 Y8P'),nl,
                             write('  |\\ \\/         \\/  /|                   888     888      '),nl,
@@ -231,10 +231,10 @@ generateGoblin  :-          random(1, 3, X),
                             write('Speed          : '), speed(goblin, Speed), write(Speed), nl, nl,
                             write('--------------------------------------'), nl.
                     
-generateWolf    :-          random(1, 3, X),
-                            (X = 1 -> createWolf(1);
-                            X = 2 -> createWolf(2);
-                            X = 3 -> createWolf(3)),
+generateWolf    :-          random(1, 100, X),
+                            (X =< 45 -> createWolf(1);
+                            X =< 75 -> createWolf(2);
+                            X =< 100 -> createWolf(3)),
                             write('                                       ,'),nl,
                             write('                                    ,,/( ,,,,,,,,,,___,,'),nl,
                             write('                                   )b     ,,,           "`,_,'),nl,
@@ -256,10 +256,10 @@ generateWolf    :-          random(1, 3, X),
                             write('Speed          : '), speed(wolf, Speed), write(Speed), nl, nl,
                             write('--------------------------------------'), nl.                    
 
-generateSpider  :-          random(1, 3, X),
-                            (X = 1 -> createSpider(1);
-                            X = 2 -> createSpider(2);
-                            X = 3 -> createSpider(3)),
+generateSpider  :-          random(1, 100, X),
+                            (X =< 45 -> createSpider(1);
+                            X =< 75 -> createSpider(2);
+                            X =< 100 -> createSpider(3)),
                             write('     ____                         ,'),nl,
                             write('    /---.`.__                ____//'),nl,
                             write('         `--.\\             //---`'),nl,
@@ -287,10 +287,10 @@ generateSpider  :-          random(1, 3, X),
                             write('Speed          : '), speed(spider, Speed), write(Speed), nl, nl,
                             write('--------------------------------------'), nl. 
 
-generateZool    :-          random(1, 3, X),
-                            (X = 1 -> createZool(1);
-                            X = 2 -> createZool(2);
-                            X = 3 -> createZool(3)),
+generateZool    :-          random(1, 100, X),
+                            (X =< 45 -> createZool(1);
+                            X =< 75 -> createZool(2);
+                            X =< 100 -> createZool(3)),
                             write('                         888'),nl,
                             write('                         888'),nl,
                             write('88888888                 888         /\\______  __'),nl,
