@@ -7,7 +7,7 @@ isEnemy(goblin).
 isEnemy(wolf).
 isEnemy(spider).
 isEnemy(zool).
-isEnemy(dragon).
+isEnemy(apex).
 
 /* Deklarasi Enemy Slime */
 
@@ -19,7 +19,8 @@ createSlime(1) :-       asserta(enemy(slime)),
                         asserta(defense(slime,4)),
                         asserta(speed(slime,3)),
                         asserta(goldEarned(slime,50)),
-                        asserta(expEarned(slime,50)).
+                        asserta(expEarned(slime,50)),
+                        asserta(isDead(no)).
                         
 createSlime(2) :-       asserta(enemy(slime)),
                         asserta(health(slime,9)),
@@ -28,7 +29,8 @@ createSlime(2) :-       asserta(enemy(slime)),
                         asserta(defense(slime,6)),
                         asserta(speed(slime,5)),
                         asserta(goldEarned(slime,100)),
-                        asserta(expEarned(slime,75)).
+                        asserta(expEarned(slime,75)),
+                        asserta(isDead(no)).
 
 createSlime(3) :-       asserta(enemy(slime)),
                         asserta(health(slime,11)),
@@ -37,7 +39,8 @@ createSlime(3) :-       asserta(enemy(slime)),
                         asserta(defense(slime,8)),
                         asserta(speed(slime,7)),
                         asserta(goldEarned(slime,150)),
-                        asserta(expEarned(slime,100)).
+                        asserta(expEarned(slime,100)),
+                        asserta(isDead(no)).
 
 /* Deklarasi Enemy Goblin */                            
 
@@ -49,7 +52,8 @@ createGoblin(1) :-      asserta(enemy(goblin)),
                         asserta(defense(goblin,6)),
                         asserta(speed(goblin,4)),
                         asserta(goldEarned(goblin,65)),
-                        asserta(expEarned(goblin,60)).
+                        asserta(expEarned(goblin,60)),
+                        asserta(isDead(no)).
 
 createGoblin(2) :-      asserta(enemy(goblin)),
                         asserta(health(goblin,10)),
@@ -58,7 +62,8 @@ createGoblin(2) :-      asserta(enemy(goblin)),
                         asserta(defense(goblin,8)),
                         asserta(speed(goblin,6)),
                         asserta(goldEarned(goblin,115)),
-                        asserta(expEarned(goblin,85)).
+                        asserta(expEarned(goblin,85)),
+                        asserta(isDead(no)).
 
 createGoblin(3) :-      asserta(enemy(goblin)),
                         asserta(health(goblin,12)),
@@ -67,7 +72,8 @@ createGoblin(3) :-      asserta(enemy(goblin)),
                         asserta(defense(goblin,10)),
                         asserta(speed(goblin,8)),
                         asserta(goldEarned(goblin,165)),
-                        asserta(expEarned(goblin,110)).
+                        asserta(expEarned(goblin,110)),
+                        asserta(isDead(no)).
 
 /* Deklarasi Enemy Wolf */                            
 
@@ -79,7 +85,8 @@ createWolf(1) :-        asserta(enemy(wolf)),
                         asserta(defense(wolf,5)),
                         asserta(speed(wolf,8)),
                         asserta(goldEarned(wolf,80)),
-                        asserta(expEarned(wolf,70)).
+                        asserta(expEarned(wolf,70)),
+                        asserta(isDead(no)).
 
 createWolf(2) :-        asserta(enemy(wolf)),
                         asserta(health(wolf,12)),
@@ -88,7 +95,8 @@ createWolf(2) :-        asserta(enemy(wolf)),
                         asserta(defense(wolf,7)),
                         asserta(speed(wolf,10)),
                         asserta(goldEarned(wolf,130)),
-                        asserta(expEarned(wolf,95)).
+                        asserta(expEarned(wolf,95)),
+                        asserta(isDead(no)).
 
 createWolf(3) :-        asserta(enemy(wolf)),
                         asserta(health(wolf,14)),
@@ -97,7 +105,8 @@ createWolf(3) :-        asserta(enemy(wolf)),
                         asserta(defense(wolf,9)),
                         asserta(speed(wolf,12)),
                         asserta(goldEarned(wolf,180)),
-                        asserta(expEarned(wolf,120)).
+                        asserta(expEarned(wolf,120)),
+                        asserta(isDead(no)).
 
 /* Deklarasi Enemy Spider */                            
 
@@ -109,7 +118,8 @@ createSpider(1) :-      asserta(enemy(spider)),
                         asserta(defense(spider,6)),
                         asserta(speed(spider,6)),
                         asserta(goldEarned(spider,95)),
-                        asserta(expEarned(spider,80)).
+                        asserta(expEarned(spider,80)),
+                        asserta(isDead(no)).
 
 createSpider(2) :-      asserta(enemy(spider)),
                         asserta(health(spider,14)),
@@ -118,7 +128,8 @@ createSpider(2) :-      asserta(enemy(spider)),
                         asserta(defense(spider,8)),
                         asserta(speed(spider,8)),
                         asserta(goldEarned(spider,145)),
-                        asserta(expEarned(spider,105)).
+                        asserta(expEarned(spider,105)),
+                        asserta(isDead(no)).
 
 createSpider(3) :-      asserta(enemy(spider)),
                         asserta(health(spider,16)),
@@ -127,7 +138,8 @@ createSpider(3) :-      asserta(enemy(spider)),
                         asserta(defense(spider,10)),
                         asserta(speed(spider,10)),
                         asserta(goldEarned(spider,195)),
-                        asserta(expEarned(spider,130)).                 
+                        asserta(expEarned(spider,130)),
+                        asserta(isDead(no)).                 
 
 /* Deklarasi Enemy Zool */                            
 
@@ -139,7 +151,8 @@ createZool(1) :-        asserta(enemy(zool)),
                         asserta(defense(zool,8)),
                         asserta(speed(zool,9)),
                         asserta(goldEarned(zool,110)),
-                        asserta(expEarned(zool,90)).
+                        asserta(expEarned(zool,90)),
+                        asserta(isDead(no)).
 
 createZool(2) :-        asserta(enemy(zool)),
                         asserta(health(zool,10)),
@@ -148,7 +161,8 @@ createZool(2) :-        asserta(enemy(zool)),
                         asserta(defense(zool,8)),
                         asserta(speed(zool,6)),
                         asserta(goldEarned(zool,160)),
-                        asserta(expEarned(zool,115)).
+                        asserta(expEarned(zool,115)),
+                        asserta(isDead(no)).
 
 createZool(3) :-        asserta(enemy(zool)),
                         asserta(health(zool,14)),
@@ -157,7 +171,8 @@ createZool(3) :-        asserta(enemy(zool)),
                         asserta(defense(zool,9)),
                         asserta(speed(zool,12)),
                         asserta(goldEarned(zool,210)),
-                        asserta(expEarned(zool,140)).
+                        asserta(expEarned(zool,140)),
+                        asserta(isDead(no)).
 
 /* Random Generate Jenis Enemy */
 
@@ -182,7 +197,14 @@ generateSlime   :-          random(1, 3, X),
                             write('  \\                              /'),nl,
                             write('   \\____________________________/'),nl,nl,
 
-                            write('EPIC BATTLE! You encounter a creepy slime!'),nl. 
+                            write('EPIC BATTLE! You encounter a creepy slime!'),nl,nl,
+
+                            write('-----------Enemy Statistics-----------'), nl, nl,
+                            write('Health         : '), health(slime, Health), write(Health), nl,
+                            write('Attack         : '), attack(slime, Attack), write(Attack), nl,
+                            write('Defense        : '), defense(slime, Defense), write(Defense), nl,
+                            write('Speed          : '), speed(slime, Speed), write(Speed), nl, nl,
+                            write('--------------------------------------'), nl.
                         
 generateGoblin  :-          random(1, 3, X),
                             (X = 1 -> createGoblin(1);
@@ -200,7 +222,14 @@ generateGoblin  :-          random(1, 3, X),
                             write(' /`     \\ .--. /     `\\  Y8b d88P'),nl,
                             write('/        "----"        \\   "Y88P"'),nl,nl,
 
-                            write('EPIC BATTLE! You encounter a stray goblin!'),nl.  
+                            write('EPIC BATTLE! You encounter a stray goblin!'),nl,nl,
+
+                            write('-----------Enemy Statistics-----------'), nl, nl,
+                            write('Health         : '), health(goblin, Health), write(Health), nl,
+                            write('Attack         : '), attack(goblin, Attack), write(Attack), nl,
+                            write('Defense        : '), defense(goblin, Defense), write(Defense), nl,
+                            write('Speed          : '), speed(goblin, Speed), write(Speed), nl, nl,
+                            write('--------------------------------------'), nl.
                     
 generateWolf    :-          random(1, 3, X),
                             (X = 1 -> createWolf(1);
@@ -218,7 +247,14 @@ generateWolf    :-          random(1, 3, X),
                             write('Y88b 888 d88PY88..88P888 888            \\(|  )     ,,//   /'),nl,
                             write(' "Y8888888P"  "Y88P" 888 888             `_)_/     ((___/" '),nl,nl,
 
-                            write('EPIC BATTLE! You encounter a ferocious wolf!'),nl.                    
+                            write('EPIC BATTLE! You encounter a ferocious wolf!'),nl,nl,
+
+                            write('-----------Enemy Statistics-----------'), nl, nl,
+                            write('Health         : '), health(wolf, Health), write(Health), nl,
+                            write('Attack         : '), attack(wolf, Attack), write(Attack), nl,
+                            write('Defense        : '), defense(wolf, Defense), write(Defense), nl,
+                            write('Speed          : '), speed(wolf, Speed), write(Speed), nl, nl,
+                            write('--------------------------------------'), nl.                    
 
 generateSpider  :-          random(1, 3, X),
                             (X = 1 -> createSpider(1);
@@ -242,8 +278,14 @@ generateSpider  :-          random(1, 3, X),
                             write('                             ||                888         '),nl,
                             write('                             \\\\                888         '),nl,nl,
 
-                            write('EPIC BATTLE! You encounter a humongous spider!'),nl. 
+                            write('EPIC BATTLE! You encounter a humongous spider!'),nl,nl,
 
+                            write('-----------Enemy Statistics-----------'), nl, nl,
+                            write('Health         : '), health(spider, Health), write(Health), nl,
+                            write('Attack         : '), attack(spider, Attack), write(Attack), nl,
+                            write('Defense        : '), defense(spider, Defense), write(Defense), nl,
+                            write('Speed          : '), speed(spider, Speed), write(Speed), nl, nl,
+                            write('--------------------------------------'), nl. 
 
 generateZool    :-          random(1, 3, X),
                             (X = 1 -> createZool(1);
@@ -266,7 +308,14 @@ generateZool    :-          random(1, 3, X),
                             write('                                  _/_/              !_l_'),nl,
                             write('                                o~_//)             (_\\\\_~o'),nl,nl,
 
-                            write('EPIC BATTLE! You encounter a mighty zool!'),nl.           
+                            write('EPIC BATTLE! You encounter a mighty zool!'),nl,nl,
+
+                            write('-----------Enemy Statistics-----------'), nl, nl,
+                            write('Health         : '), health(zool, Health), write(Health), nl,
+                            write('Attack         : '), attack(zool, Attack), write(Attack), nl,
+                            write('Defense        : '), defense(zool, Defense), write(Defense), nl,
+                            write('Speed          : '), speed(zool, Speed), write(Speed), nl, nl,
+                            write('--------------------------------------'), nl.           
 
 
 generateEnemy(C)    :-  write('There is something in the bush. Wait, it is coming over here!'),nl,
@@ -276,12 +325,19 @@ generateEnemy(C)    :-  write('There is something in the bush. Wait, it is comin
                           C =< 90  -> generateSpider;
                           C =< 100 -> generateZool ).
 
-isBattle            :-  random(1, 100, X),
+isEncounter         :-  random(1, 100, X),
                         ( X =< 70 -> 
                             write('Nothing here, keep going, young lad!');
                           X =< 100 ->
-                            generateEnemy(C),
-                            write('Careful! There is a chance an enemy is lurking after you...')).
+                            asserta(isBattle(yes)),
+                            write('Careful! There is a chance an enemy is lurking after you...'),nl,
+                            write('.'),nl,
+                            write('.'),nl,
+                            write('.'),nl,
+                            write('.'),nl,
+                            write('.'),nl,
+                            write('.'),nl,
+                            generateEnemy(C)).
 
 
 
