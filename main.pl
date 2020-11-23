@@ -50,20 +50,26 @@ mainMenu :-     write('              _'), nl,
                 (Nav = 1 -> write('Have fun! May the force be with you.'), nl, nl, start, !;
                 Nav = 2 -> write('Transferring you to our Wiki...'), nl, wiki, !;
                 Nav = 3 -> write('Generating the Tales of ThryLos...'), nl, about, !;
-                quit, write('Till we meet again, then!'), nl, !).
+                quit, !).
 
 /* Definisi Quit Game */
 
-quit :-         write('We will wait for your biggest comeback later!'), nl,
+quit :-         write('Are you sure you want to quit ThryLos? '), read(QChc), nl,
+                (QChc == yes -> write('Now, do you want to store this to the Memento?'), nl,
+                write('You can synchronized with your stats later if you pick yes, else you should start over!'), nl,
+                write('The time has come! Now, which of it? '), read(SChc), nl,
+                (SChc == yes -> save; !),
+                write('Till we meet again, then!'), nl,
                 retractall(started(_)), retractall(class(_, _)), retractall(health(_,_)),
                 retractall(attack(_,_)), retractall(defense(_,_)), retractall(magic(_,_)),
-                retractall(speed(_,_)), retractall(specialAttack(_,_)), retractall(gold(_,_)),
+                retractall(speed(_,_)), retractall(specialattack(_,_)), retractall(gold(_,_)),
                 retractall(exp(_,_)), retractall(level(_,_)), retractall(eqWeapon(_)),
                 retractall(eqAccessory(_)), retractall(eqArmor(_)), retractall(usedSpace(_)),
                 retractall(stored(_,_)), retractall(player(_,_)), retractall(store(_,_)), 
                 retractall(leftZone(_,_)), retractall(rightZone(_,_)), retractall(store(_,_)),
                 retractall(dungeon(_,_)), retractall(quest(_,_)), retractall(innerWall(_,_)), 
-                retractall(teleport(_,_)), retractall(isTaken(_,_)).
+                retractall(teleport(_,_)), retractall(isTaken(_,_)), retractall(zone(_));
+                write('Pyuuhh. Let us continue, then!'), nl, !).
 
 
 /* Definisi Start Game */
@@ -278,7 +284,8 @@ throw(X, Z) :-      discard(X, Z), !.
 
 /* Show Map */
 
-map :-              write('Activating the NVGXor to see the map..'), nl, nl,
+map :-              (\+started(_) -> fail;
+                    write('Activating the NVGXor to see the map..'), nl, nl,
                     zone(X), 
                     (X = 1 -> write('    ____  _      __  __         _       __    __ '), nl,
                     write('   / __ )(_)____/ /_/ /_  _____(_)___ _/ /_  / /_'), nl,
@@ -307,4 +314,40 @@ map :-              write('Activating the NVGXor to see the map..'), nl, nl,
                     write('T : Ever heard of Teleport? Yeah, it also exists here. Don\'t be surprised, duh!'), nl,
                     write('D : Where The Pinnacle of Dragons, ApeX resides. Quickly take him down!'), nl,
                     write('* If you don\'t see any one of these, don\'t worry. You will find it later so keep going!'), nl,
-                    write('-----------------------------------------------------------------------------------------'), nl.
+                    write('-----------------------------------------------------------------------------------------'), nl, !).
+
+save :-             write('Fill in The Memento ID you want to store your stats to: '), read(FileName), nl,
+                    tell(FileName),
+                        listing(started/1), listing(class/2), listing(health/2), 
+                        listing(attack/2),  listing(defense/2), listing(magic/2), 
+                        listing(speed/2), listing(specialattack/2), listing(gold/2), 
+                        listing(exp/2), listing(zone/1), listing(level/2), 
+                        listing(eqAccessory/1), listing(eqWeapon/1), listing(eqArmor/1), 
+                        listing(usedSpace/1), listing(stored/2), listing(player/2),
+                    told,
+                    write('-------------------------------------------------------------------------'), nl,
+                    write('---------------------------STORING YOUR POWERS---------------------------'), nl,
+                    write('------------------------SHUTTING DOWN THE SYSTEM-------------------------'), nl,
+                    write('-------------------------------------------------------------------------'), nl, nl, !.
+
+load :-             write('Pick your Memento ID to synchronize with: '), read(FileName), nl,
+                    (\+file_exists(FileName) -> write('You don\'t have this file, noob.'), nl, fail;
+                    open(FileName, read, Stream), fToList(Stream, Lines),
+                    lToCodes(Lines), close(Stream), zone(X), player(XNow, YNow),
+                    (X = 1 -> initMap1; X = 2 -> initMap2; initMap3),
+                    retractall(player(_,_)), asserta(player(XNow, YNow)),
+                    write('-------------------------------------------------------------------------'), nl,
+                    write('------------------------GETTING BACK YOUR POWERS-------------------------'), nl,
+                    write('-----------------------SUCCESSFULLY SYNCHRONIZED!------------------------'), nl, 
+                    write('-------------------------------------------------------------------------'), nl, nl,
+                    write('Welcome back to ThryLos, '), class(User,_), write(User), write('!'), nl,
+                    write('Let us continue our adventure to save ThryLos!'), nl), !.
+
+fToList(S, []):-    at_end_of_stream(S).
+   
+fToList(S, [X|L]):- \+at_end_of_stream(S),
+                    read(S, X),
+                    fToList(S, L), !.
+
+lToCodes(List) :-   (List = [] -> !;
+                    List = [X|L] -> asserta(X), lToCodes(L), !).

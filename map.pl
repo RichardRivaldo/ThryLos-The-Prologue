@@ -58,7 +58,7 @@ validMove(PrevX, PrevY, NewX, NewY) :-  (store(NewX, NewY) -> write('Don\'t just
                                         retract(player(NewX,NewY)), asserta(player(PrevX, PrevY)), 
                                         write('The Wall here is too high. You can\'t climb it over with your short feet!'), 
                                         nl, !, fail;
-                                        isEncounter).
+                                        isEncounter, !).
 
 /* Definisi Move */
 
