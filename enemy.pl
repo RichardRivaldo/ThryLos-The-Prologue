@@ -395,26 +395,5 @@ isEncounter         :-  random(1, 100, X),
 
 dungeon       :-        generateApex.
 
-
-
-
-    
-
-
-
-    
-    
-    
-    
-    
-
-    
-            
- 
-   
-     
-     
-    
-                                
-                                
-   
+isPlayerDead :-         class(User, _), health(User, Health),
+                        Health < 1, !.
