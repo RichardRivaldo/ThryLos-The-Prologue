@@ -14,7 +14,8 @@
 * Pastikan *console* telah berada di direktori yang mengandung program yang ingin dijalankan.
 * Hal tersebut dapat dilakukan dengan melakukan `change_directory(address)` terlebih dahulu, atau melalui menu 'file' di GNU Prolog Console.
 * Jalankan program main.pl dengan cara `consult('main.pl').`
-* Masukkan *commands* yang telah disediakan dalam program. 
+* Untuk menginisiasi game masukkan perintah `thrylos.` ke dalam console.
+* Masukkan *commands* yang telah disediakan dalam program.
 
 ## Sources
 * GNU Prolog Documentation
