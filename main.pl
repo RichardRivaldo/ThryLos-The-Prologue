@@ -9,6 +9,7 @@
 :- include('store.pl').
 :- include('map.pl').
 :- include('enemy.pl').
+:- include('quest.pl').
 
 /* Definisi InitGame */
 

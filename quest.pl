@@ -1,16 +1,16 @@
 /* quest.pl */
 
-getQuest(X) :- write('Welcome adventurer, may you help us?'),nl,
-                    (X = 0 ->
+getQuest(Menu) :- write('Welcome adventurer, may you help us?'),nl,
+                    (Menu = 0 ->
                         write('Sorry, you already have another quest, please finish it first'),nl,
                         exitQuest
-                    X = 1 ->
+                    Menu = 1 ->
                         write('[1] Easy Quest')
                         write('[2] Medium Quest')
                         write('[3] Hard Quest')
                         write('[0] Don\'t take a Quest')
                         write('Please pick your quest difficulty : '), read_integer(QuestDiff),nl,
-                        PlayerLevel is level(_,Y)
+                        level(X,PlayerLevel),
                         (QuestDiff = 0 ->
                             exitQuest
                         QuestDiff = 1 ->
@@ -120,7 +120,12 @@ generateQuestHard(level) :- (level = 1 ->
                                 write('Your Quest is to kill 3 wolf , 2 spider and 2 zool'),nl,
                             );.
 
-generateQuestReward(Min,Max) :- random(Min,Max,QuestEXP),
-                            QuestExpReward()
+generateQuestReward(Min,Max) :- random(Min,Max,QuestReward),
+                            exp(X,curexp),
+                            gold(X,curgold),
+                            QuestExpReward = (QuestReward*100) + curexp,
+                            QuestGoldReward = (QuestReward*150) + curgold,
+                            retract(exp(X,_)), asserta(exp(X,QuestExpReward)),
+                            retract(gold(X,_)), asserta(gold(X,QuestGoldReward)).
 
 exitQuest :- write('Thank you adventurer, may the odds be ever in your favor'),nl.
