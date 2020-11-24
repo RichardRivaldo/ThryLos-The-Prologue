@@ -40,7 +40,7 @@ attackActPlayer     :-  random(1, 100, C),
                          C =< 100 ->
                          write('Oh no! You miss your attack, better keep focus, soldier!')).
 
-specialActPlayer    :-  (\+cooldown -> applySpPlayer(Dmg), !.
+specialActPlayer    :-  (\+cooldown -> applySpPlayer(Dmg), !).
 
 drinkAct    :-  write('----------------------------------------------------'), nl,
                 write('   Gotta make the best use of that potions, mate!'), nl,
@@ -92,6 +92,10 @@ battle :-       repeat,
                     enemyTurn,
                     (\+isBattle(yes) -> !;
                     isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
-                    isDead(X), X == yes -> retract(isBattle(_)), write('That was indeed a splendid performance! Keep it up, champ!'), nl,
-                    addExp..., addGold...;
+                    isDead(X), X == yes -> 
+                        monsterToKill(Enemy,Tot),
+                        retract(monsterToKill(Enemy,_)), asserta(monsterToKill(Enemy,Tot-1)),
+                        isQuestFinished,
+                        retract(isBattle(_)), write('That was indeed a splendid performance! Keep it up, champ!'), nl,
+                        addExp  ..., addGold...; 
                     fail).
