@@ -5,6 +5,19 @@
 playerTurn  :-  write('----------------------------------------------------'), nl,
                 write('                It\'s your turn now!'), nl,
                 write('----------------------------------------------------'), nl,
+                write('                     PLAYER INFO                    '), nl,
+                write('Health   : '), health(Username,Health), write(Health),nl,
+                write('Attack   : '), attack(Username, Attack), write(Attack), nl,
+                write('Magic    : '), attack(Username, Magic), write(Magic), nl,
+                write('Defense  : '), defense(Username, Defense), write(Defense), nl,
+                write('Speed    : '), speed(Username, Speed), write(Speed), nl,
+                write('----------------------------------------------------'), nl,
+                write('                      ENEMY INFO                    '), nl,
+                write('Health   : '), health(Enemy,Health), write(Health),nl,
+                write('Attack   : '), attack(Enemy, Attack), write(Attack), nl,
+                write('Defense  : '), defense(Enemy, Defense), write(Defense), nl,
+                write('Speed    : '), speed(Enemy, Speed), write(Speed), nl,
+                write('----------------------------------------------------'), nl,
                 write('[No] | [Action]'),nl,
                 write('[1.] | [Attack]'),nl,
                 write('[2.] | [Special Attack]'),nl,
@@ -95,9 +108,13 @@ applySpEnemy(Damage)   :-   enemy(Enemy), specialattack(Enemy,Att), health(Usern
 
 /* Definisi Battle */
 
-battle :-       repeat,
-                    playerTurn,
+battle :-       enemy(Enemy), speed(Enemy,ESpeed), speed(Username,PSpeed),
+                repeat,
+                    (PSpeed > ESpeed ->
+                        playerTurn,
+                        enemyTurn;
                     enemyTurn,
+                    playerTurn),
                     (\+isBattle(yes) -> !;
                     isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
                     isDead(X), X == yes -> 

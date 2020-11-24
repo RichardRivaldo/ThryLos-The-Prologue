@@ -10,6 +10,7 @@
 :- include('map.pl').
 :- include('enemy.pl').
 :- include('quest.pl').
+:- include('battle.pl').
 
 /* Definisi InitGame */
 

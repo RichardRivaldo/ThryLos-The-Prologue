@@ -391,7 +391,8 @@ isEncounter         :-  random(1, 100, X),
                             write('.'),nl,
                             write('.'),nl,
                             write('.'),nl,
-                            generateEnemy(_)).
+                            generateEnemy(_),
+                            battle).
 
 dungeon       :-        asserta(isBattle(yes)).
                         generateApex.
