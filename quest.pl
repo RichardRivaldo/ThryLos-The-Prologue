@@ -1,5 +1,14 @@
 /* quest.pl */
 
+/*debugging kit
+level(_tes,3).
+
+
+*/
+
+:-dynamic(monsterToKill/2).
+:-dynamic(isQuestActive/1).
+
 isQuestActive(no).
 monsterToKill(slime,0).
 monsterToKill(goblin,0).
@@ -8,20 +17,26 @@ monsterToKill(spider,0).
 monsterToKill(zool,0).
 monsterToKill(apex,0).
 
+:- dynamic(getQuest/0).   
+
 getQuest :- write('Welcome adventurer, may you help us?'),nl,
             isQuestActive(Check),
             (Check = yes ->
                 write('Sorry, you already have another quest, please finish it first'),nl,
                 exitQuest;
             Check = no ->
-                retractall(monsterToKill(_,_)),
+                retract(monsterToKill(slime,_)),
+                retract(monsterToKill(goblin,_)),
+                retract(monsterToKill(wolf,_)),
+                retract(monsterToKill(spider,_)),
+                retract(monsterToKill(zool,_)),
+                retract(monsterToKill(apex,_)),
                 level(_X,PlayerLevel),
                 write('[1] Easy Quest'), nl,
                 write('[2] Medium Quest'), nl,
                 write('[3] Hard Quest'), nl,
                 write('[0] Don\'t take a Quest'), nl,
-                write('Please pick your quest difficulty : '),nl,
-                read_integer(QuestDiff),nl,
+                write('Please pick your quest difficulty : '),read_integer(QuestDiff),nl,
                 (
                     QuestDiff =:= 0 ->
                         exitQuest;
@@ -285,6 +300,6 @@ isQuestFinished :-  monsterToKill(slime,SlimeKill), SlimeKill < 1,
                     updateExpAndGoldQuest.
 
 /* To Do
-- Cek apakah player ada di Q
+- Cek apakah player ada di Q (DONE)
 - Cek apakah player memiliki quest yang aktif (DONE)
 - Implement Progress dan finish Quest (DONE) */
