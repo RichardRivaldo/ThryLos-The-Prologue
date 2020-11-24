@@ -264,7 +264,7 @@ generateQuestHard(Lvl) :- (Lvl =:= 1 ->
 
 generateQuestReward(Min,Max) :- random(Min,Max,QuestReward),
                                 _QuestExpReward = (QuestReward*100),
-                                _QuestGoldReward = (QuestReward*150) + Curgold.
+                                _QuestGoldReward = (QuestReward*150) + _Curgold.
 
 /* Kalau Quest beres baru dapet ini, quest bisa beres dimana ajah*/
 :- dynamic(updateExpAndGoldQuest/0).

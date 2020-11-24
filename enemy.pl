@@ -394,7 +394,7 @@ isEncounter         :-  random(1, 100, X),
                             generateEnemy(_),
                             battle).
 
-dungeon       :-        asserta(isBattle(yes)).
+dungeon       :-        asserta(isBattle(yes)),
                         generateApex.
 
 isPlayerDead :-         class(User, _), health(User, Health),
