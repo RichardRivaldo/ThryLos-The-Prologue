@@ -62,25 +62,33 @@ drinkAct    :-  write('----------------------------------------------------'), n
                  PotionChoice = 5 -> drink(speed_potion)).
 
 runAct      :-  random(1, 11, X),
-                (X > 2 -> retract(isBattle(yes)), write('OH MY GOD! You almost lost your life back then. Fortunately, you make the right move!'), nl;
+                (X > 2 -> retract(isBattle(yes)), write('OH MY GOD! You almost lost your life back then. Fortunately, you make the right move!'), nl,
+                retract(enemy(Enemy)),
+                retract(health(Enemy,_)),
+                retract(attack(Enemy,_)),
+                retract(specialattack(Enemy,_)),
+                retract(defense(Enemy,_)),
+                retract(speed(Enemy,_)),
+                retract(goldEarned(Enemy,_)),
+                retract(expEarned(Enemy,_));
                 write('The enemy is too strong! But, you cannot retreat right now. Fight them!'), nl).
 
 
 /* Sistem damage dalam battle */
 
-applyDmgPlayer(Damage)  :-  attack(Username,Att), magic(Username,Mag), isEnemy(Enemy), health(Enemy,Hp), defense(Enemy,Def),
+applyDmgPlayer(Damage)  :-  attack(Username,Att), magic(Username,Mag), enemy(Enemy), health(Enemy,Hp), defense(Enemy,Def),
                             Damage is (Att+Mag) - (Def/2), retract(health(Enemy,Hp)),
                             NewHp is Hp - Damage, asserta(health(Enemy,NewHp)).
 
-applyDmgEnemy(Damage)   :-  isEnemy(Enemy), attack(Enemy,Att), health(Username,Hp), defense(Username,Def),
+applyDmgEnemy(Damage)   :-  enemy(Enemy), attack(Enemy,Att), health(Username,Hp), defense(Username,Def),
                             Damage is Att - (Def/2), retract(health(Username,Hp)),
                             NewHp is Hp - Damage, asserta(health(Username,NewHp)).
 
-applySpPlayer(Damage)   :-  specialattack(Username,Att), isEnemy(Enemy), health(Enemy,Hp),
+applySpPlayer(Damage)   :-  specialattack(Username,Att), enemy(Enemy), health(Enemy,Hp),
                             Damage is Att, retract(health(Enemy,Hp)),
                             NewHp is Hp - Damage, asserta(health(Enemy,NewHp)).
 
-applySpEnemy(Damage)   :-   isEnemy(Enemy), specialattack(Enemy,Att), health(Username,Hp),
+applySpEnemy(Damage)   :-   enemy(Enemy), specialattack(Enemy,Att), health(Username,Hp),
                             Damage is Att, retract(health(Username,Hp)),
                             NewHp is Hp - Damage, asserta(health(Username,NewHp)).
 
@@ -97,5 +105,18 @@ battle :-       repeat,
                         retract(monsterToKill(Enemy,_)), asserta(monsterToKill(Enemy,Tot-1)),
                         isQuestFinished,
                         retract(isBattle(_)), write('That was indeed a splendid performance! Keep it up, champ!'), nl,
-                        addExp  ..., addGold...; 
+                        enemy(Enemy), expEarned(Enemy,Exp), goldEarned(Enemy,Gold), addExp(Username,Exp), addGold(Username,Gold),
+                        retract(enemy(Enemy)),
+                        retract(health(Enemy,_)),
+                        retract(attack(Enemy,_)),
+                        retract(specialattack(Enemy,_)),
+                        retract(defense(Enemy,_)),
+                        retract(speed(Enemy,_)),
+                        retract(goldEarned(Enemy,_)),
+                        retract(expEarned(Enemy,_)); 
                     fail).
+
+
+addGold(X,Add)  :-  gold(X,PrevGold), retract(gold(X,PrevGold)),
+                    NewGold is PrevGold + Add, asserta(gold(X,NewGold)),
+                    write('Cha ching! The monsters drop some money!'),nl.  

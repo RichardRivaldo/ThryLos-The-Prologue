@@ -393,7 +393,8 @@ isEncounter         :-  random(1, 100, X),
                             write('.'),nl,
                             generateEnemy(_)).
 
-dungeon       :-        generateApex.
+dungeon       :-        asserta(isBattle(yes)).
+                        generateApex.
 
 isPlayerDead :-         class(User, _), health(User, Health),
                         Health < 1, !.
