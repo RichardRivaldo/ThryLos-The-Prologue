@@ -39,9 +39,9 @@ enemyTurn :-    write('----------------------------------------------------'), n
                 write('          PREPARE YOURSELF FROM THE ATTACK!'), nl,
                 write('----------------------------------------------------'), nl, nl,
                 random(1,11,X),
-                (X =< 4 -> applySpEnemy;
-                applyDmgEnemy), 
-                write('Ouch, that hurts! Faster, finish this fight or it will be your loss!'), nl, !.
+                (X =< 4 -> applySpEnemy(_);
+                applyDmgEnemy(_)), 
+                write('Ouch, that hurts! Faster, finish this fight or it will be your loss!'), nl, nl, !.
 
 
 /* Action yang dapat dilakukan oleh player */
@@ -53,7 +53,7 @@ attackActPlayer     :-  random(1, 100, C),
                          C =< 100 ->
                          write('Oh no! You miss your attack, better keep focus, soldier!')).
 
-specialActPlayer    :-  (\+cooldown -> applySpPlayer(Dmg), !).
+specialActPlayer    :-  (\+cooldown -> applySpPlayer(_), !).
 
 drinkAct    :-  write('----------------------------------------------------'), nl,
                 write('   Gotta make the best use of that potions, mate!'), nl,
@@ -97,7 +97,7 @@ applyDmgEnemy(Damage)   :-  enemy(Enemy), attack(Enemy,Att), health(Username,Hp)
                             Damage is Att - (Def/2), retract(health(Username,Hp)),
                             NewHp is Hp - Damage, asserta(health(Username,NewHp)).
 
-applySpPlayer(Damage)   :-  specialattack(Username,Att), enemy(Enemy), health(Enemy,Hp),
+applySpPlayer(Damage)   :-  specialattack(_,Att), enemy(Enemy), health(Enemy,Hp),
                             Damage is Att, retract(health(Enemy,Hp)),
                             NewHp is Hp - Damage, asserta(health(Enemy,NewHp)).
 

@@ -44,6 +44,7 @@ map(SX, SY) :-          (rightZone(SX, SY) -> write('>');
 /* Definisi Valid Move */
 
 validMove(PrevX, PrevY, NewX, NewY) :-  (store(NewX, NewY) -> write('Don\'t just stand there. Come enter The Almighty ThryStore!'), nl, nl, visitStore;
+                                        quest(NewX, NewY) -> write('Help us!'), nl, nl, getQuest;
                                         teleport(NewX, NewY) -> write('Entering The Registrated Dimensional Gates..'),  nl, nl, teleport;
                                         dungeon(NewX, NewY) -> dungeon;
                                         rightZone(NewX, NewY) -> retract(zone(CZone)), NZone is CZone + 1, asserta(zone(NZone)), switchZoneR, !,
