@@ -5,7 +5,6 @@ level(_tes,3).
 
 
 */
-level(_tes,3).
 :-dynamic(monsterToKill/2).
 :-dynamic(isQuestActive/1).
 
@@ -310,12 +309,15 @@ updateExpAndGoldQuest :-write('Thank you for finishing the Quest, here is your r
 
 exitQuest :- write('Thank you adventurer, may the odds be ever in your favor'),nl.
 
-isQuestFinished :-  monsterToKill(slime,SlimeKill), SlimeKill < 1,
+isQuestFinished :-  isQuestActive(yes),
+                    monsterToKill(slime,SlimeKill), SlimeKill < 1,
                     monsterToKill(goblin,GoblinKill), GoblinKill < 1,
                     monsterToKill(wolf,WolfKill), WolfKill < 1,
                     monsterToKill(spider,SpiderKill), SpiderKill < 1,
                     monsterToKill(zool,ZoolKill), ZoolKill < 1,
                     updateExpAndGoldQuest.
+
+isQuestFinished.
 
 /* To Do
 - Cek apakah player ada di Q (DONE)

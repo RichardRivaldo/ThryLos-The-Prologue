@@ -177,10 +177,10 @@ addGold(X,Add)  :-  gold(X,PrevGold), retract(gold(X,PrevGold)),
                     NewGold is PrevGold + Add, asserta(gold(X,NewGold)),
                     write('Cha ching! The monsters drop some money! '), write(Add), write(' gold earned'),nl.  
 
-winningBattle :-  
-                  /*monsterToKill(Enemy,Tot),
-                  retract(monsterToKill(Enemy,_)), asserta(monsterToKill(Enemy,Tot-1)),
-                  isQuestFinished,*/
+winningBattle :-    enemy(Enemy),
+                    monsterToKill(Enemy,Tot), Total is Tot-1,
+                    retract(monsterToKill(Enemy,Tot)),asserta(monsterToKill(Enemy,Total)),
+                    isQuestFinished,
                     retract(isBattle(_)), write('That was indeed a splendid performance! Keep it up, champ!'), nl,
                     enemy(Enemy), expEarned(Enemy,Exp), goldEarned(Enemy,Gold), addExp(Username,Exp), addGold(Username,Gold),
                     retract(enemy(Enemy)),
