@@ -20,7 +20,12 @@ playerTurn  :-  write('----------------------------------------------------'), n
                 write('----------------------------------------------------'), nl,
                 write('[No] | [Action]'),nl,
                 write('[1.] | [Attack]'),nl,
-                write('[2.] | [Special Attack]'),nl,
+                
+                spcooldown(X), (X=<0->
+                write('[2.] | [Special Attack]                      READY');
+                write('[2.] | [Special Attack]          cooldown :'),
+                write(X), write('turn(s) left')),
+                nl,
                 write('[3.] | [Use Potion]'),nl,
                 write('[4.] | [Run]'),nl,
                 write('----------------------------------------------------'), nl,
@@ -53,7 +58,10 @@ attackActPlayer     :-  random(1, 100, C),
                          C =< 100 ->
                          write('Oh no! You miss your attack, better keep focus, soldier!')), nl.
 
-specialActPlayer    :-  (\+cooldown -> applySpPlayer(_), !).
+specialActPlayer    :-  spcooldown(X),
+                        X=<0 -> applySpPlayer(_), !;
+                        write('Oh no! You\'re still cannot use your special attack!'),nl,
+                        write('Your enemy laughs at you over your exhaustion! You lost your turn!'), updateCD.
 
 drinkAct    :-  write('----------------------------------------------------'), nl,
                 write('   Gotta make the best use of that potions, mate!'), nl,
@@ -93,8 +101,21 @@ runAct      :-  random(1, 11, X),
 
 /* Sistem damage dalam battle */
 
+updateCD                :-  spcooldown(X), NewX is X-1, 
+                            (NewX < 0 ->
+                                write('----------------------------------------------------'), nl,
+                                write('---------YOUR SPECIAL ATTACK IS READY!--------------'), nl,
+                                write('----------------------------------------------------'), nl
+                            ;
+                                retract(spcooldown(X)),
+                                asserta(spcooldown(NewX))
+                            ).
+
+resetCD                 :- write('You got tired from using your hidden moves!!'),spcooldown(_), retract(spcooldown(_)), asserta(spcooldown(3)).
+
 applyDmgPlayer(Damage)  :-  class(Username,_), attack(Username,Att), magic(Username,Mag), enemy(Enemy), health(Enemy,Hp), defense(Enemy,Def),
                             Damage is (Att+Mag) - (Def/2), retract(health(Enemy,Hp)),
+                            updateCD,
                             NewHp is Hp - Damage, asserta(health(Enemy,NewHp)).
 
 applyDmgEnemy(Damage)   :-  class(Username,_), enemy(Enemy), attack(Enemy,Att), health(Username,Hp), defense(Username,Def),
@@ -104,11 +125,14 @@ applyDmgEnemy(Damage)   :-  class(Username,_), enemy(Enemy), attack(Enemy,Att), 
 
 applySpPlayer(Damage)   :-  class(Username,_), specialattack(Username,Att), enemy(Enemy), health(Enemy,Hp),
                             Damage is Att, retract(health(Enemy,Hp)),
+                            write('You use your hidden move!! You dealt '), write(Att), write(' damages!'),nl,
+                            resetCD,
                             NewHp is Hp - Damage, asserta(health(Enemy,NewHp)).
 
 applySpEnemy(Damage)    :-  class(Username,_), enemy(Enemy), specialattack(Enemy,Att), health(Username,Hp),
                             Damage is Att, retract(health(Username,Hp)),
-                            NewHp is Hp - Damage, asserta(health(Username,NewHp)).
+                            NewHp is Hp - Damage, asserta(health(Username,NewHp)),
+                            write('Whoa! That was a huge blow! You left with '), write(NewHp), write('HP left!'), nl.
 
 /* Definisi Battle */
 
@@ -117,24 +141,18 @@ battle :-
             repeat,
                 (PSpeed>ESpeed ->
                     playerTurn,
-                    (
-                    (\+isBattle(yes) -> !;
-                    (isEnemyDead -> winningBattle; write('musuh belum mati'), nl, enemyTurn);
-                    isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
-                    fail));
-                enemyTurn,
-                    (
-                    (\+isBattle(yes) -> !;
-                    (isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
-                    isEnemyDead -> winningBattle; write('musuh belum mati'), nl, playerTurn);
-                    fail)    
-                )).
-
-                /*write('MASIH BERTARUNGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG'),nl,
-                playerTurn,
-                (isEnemyDead -> winningBattle;
-                enemyTurn),*/
-
+                    (isEnemyDead -> winningBattle; enemyTurn)
+                ;
+                    (isEnemyDead -> winningBattle; enemyTurn),
+                    (isPlayerDead ->
+                        write('It was a pleasure to know you. But, what can I say other than goodbye?'),
+                        nl, halt
+                        ; playerTurn)
+                ),
+                isEnemyDead -> winningBattle,
+                (\+isBattle(yes) -> !;
+                isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
+                fail).
 
 addGold(X,Add)  :-  gold(X,PrevGold), retract(gold(X,PrevGold)),
                     NewGold is PrevGold + Add, asserta(gold(X,NewGold)),

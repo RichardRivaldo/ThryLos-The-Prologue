@@ -78,7 +78,7 @@ quit :-         write('Are you sure you want to quit ThryLos? '), read(QChc), nl
 :- dynamic(started/1).
 start    :-     started(_), write('You had started your journey, young\'un. Finish it first!'), nl.
 
-start    :-     \+started(_), asserta(started(true)),
+start    :-     \+started(_), asserta(started(true)), asserta(spcooldown(0)), 
                 write('Initializing The World of ThryLos..'), nl, initMap1,
                 write('Preparing character modifications..'), nl,
                 write('Producing powerful items and potions..'), nl,
