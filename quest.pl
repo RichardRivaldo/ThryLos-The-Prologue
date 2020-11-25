@@ -5,7 +5,7 @@ level(_tes,3).
 
 
 */
-
+level(_tes,3).
 :-dynamic(monsterToKill/2).
 :-dynamic(isQuestActive/1).
 
@@ -36,10 +36,14 @@ getQuest :- write('Welcome adventurer, may you help us?'),nl,
                 write('()==(      Quest List     (@==()'), nl,
                 write('     \'____________________\'|'), nl,
                 write('       |                   |'), nl,
+                write('       |                   |'), nl,   
+                write('       |                   |'), nl,             
                 write('       |  [1] Easy Quest   |'), nl,
                 write('       |  [2] Medium Quest |'), nl,
                 write('       |  [3] Hard Quest   |'), nl,
                 write('       |  [0] Exit         |'), nl,
+                write('       |                   |'), nl,
+                write('       |                   |'), nl,
                 write('       |                   |'), nl,
                 write('     __)___________________|'), nl,
                 write('()==(                     (@==()'), nl,
@@ -292,7 +296,7 @@ generateQuestReward(Min,Max) :- random(Min,Max,QuestReward),
 /* Kalau Quest beres baru dapet ini, quest bisa beres dimana ajah*/
 :- dynamic(updateExpAndGoldQuest/0).
 
-updateExpAndGoldQuest :-write('Thank you for finishing the Quest, here is your reward'), nl,
+updateExpAndGoldQuest :-write('Thank you for finishing the Quest, here is your reward!'), nl,
                         write('You\'ve earned '),
                         write(_QuestExpReward),
                         write(' EXP and '),
