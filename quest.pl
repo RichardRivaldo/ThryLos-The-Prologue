@@ -292,19 +292,27 @@ generateQuestReward(Min,Max) :- random(Min,Max,QuestReward),
                                 _QuestExpReward = (QuestReward*100),
                                 _QuestGoldReward = (QuestReward*150) + _Curgold.
 
-/* Kalau Quest beres baru dapet ini, quest bisa beres dimana ajah*/
+
 checkQuest :-   isQuestActive(Check),
-                Check = no -> write('You don\'t have any quest active at this moment');
+                Check = no -> write('You don\'t have any quest active at this moment'),nl;
                 Check = yes ->
-                write('To finish your quest you must kill : '),
-                monsterToKill(slime,SlimeToKill), SlimeToKill > 0 -> write(SlimeToKill), write(' slime');
-                monsterToKill(goblin,GoblinToKill), GoblinToKill > 0 -> write(GoblinToKill), write(' slime');
-                monsterToKill(wolf,WolfToKill), WolfToKill > 0 -> write(WolfToKill), write(' slime');
-                monsterToKill(spider,SpiderToKill), SpiderToKill > 0 -> write(SpiderToKill), write(' slime');
-                monsterToKill(zool,ZoolToKill), ZoolToKill > 0 -> write(ZoolToKill), write(' slime').
+                (
+                    write('To finish your quest you must kill : '),
+                    monsterToKill(slime,SlimeToKill), SlimeToKill > 0 -> 
+                        write(SlimeToKill), write(' slime '),
+                    monsterToKill(goblin,GoblinToKill), GoblinToKill > 0 -> 
+                        write(GoblinToKill), write(' goblin '),
+                    monsterToKill(wolf,WolfToKill), WolfToKill > 0 -> 
+                        write(WolfToKill), write(' wolf '),
+                    monsterToKill(spider,SpiderToKill), SpiderToKill > 0 -> 
+                        write(SpiderToKill), write(' spider '),
+                    monsterToKill(zool,ZoolToKill), ZoolToKill > 0 -> 
+                        write(ZoolToKill), write(' zool '),
+                    nl
+                ).
 
 :- dynamic(updateExpAndGoldQuest/0).
-
+/* Kalau Quest beres baru dapet ini, quest bisa beres dimana ajah*/
 updateExpAndGoldQuest :-write('Thank you for finishing the Quest, here is your reward!'), nl,
                         write('You\'ve earned '),
                         write(_QuestExpReward),
