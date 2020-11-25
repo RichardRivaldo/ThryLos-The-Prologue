@@ -117,22 +117,23 @@ battle :-
             repeat,
                 (PSpeed>ESpeed ->
                     playerTurn,
-                    (isEnemyDead -> winningBattle;write('musuh belum mati'), nl, enemyTurn)
-                ;
-                    (isEnemyDead -> winningBattle;write('musuh belum mati 2'), nl, enemyTurn),
-                    (isPlayerDead ->
-                        write('It was a pleasure to know you. But, what can I say other than goodbye?'),
-                        nl, halt
-                        ; playerTurn)
-                ),
-                isEnemyDead -> winningBattle,
+                    (
+                    (\+isBattle(yes) -> !;
+                    (isEnemyDead -> winningBattle; write('musuh belum mati'), nl, enemyTurn);
+                    isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
+                    fail));
+                enemyTurn,
+                    (
+                    (\+isBattle(yes) -> !;
+                    (isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
+                    isEnemyDead -> winningBattle; write('musuh belum mati'), nl, playerTurn);
+                    fail)    
+                )).
+
                 /*write('MASIH BERTARUNGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG'),nl,
                 playerTurn,
                 (isEnemyDead -> winningBattle;
                 enemyTurn),*/
-                (\+isBattle(yes) -> !;
-                isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
-                fail).
 
 
 addGold(X,Add)  :-  gold(X,PrevGold), retract(gold(X,PrevGold)),
