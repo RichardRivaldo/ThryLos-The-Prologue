@@ -17,7 +17,7 @@ isClass(summoner).
 
 :- dynamic(createSwordsman/1).
 createSwordsman(X) :-   asserta(class(X, swordsman)), 
-                        asserta(health(X, 7)),
+                        asserta(health(X, 30)),
                         asserta(specialattack(X, 7)),
                         asserta(attack(X, 4)), 
                         asserta(magic(X, 2)), 

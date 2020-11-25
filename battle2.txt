@@ -51,7 +51,7 @@ attackActPlayer     :-  random(1, 100, C),
                          applyDmgPlayer(Damage),
                          write('You landed a blow to the enemy '), write(Damage), write(' damage!'),nl;
                          C =< 100 ->
-                         write('Oh no! You miss your attack, better keep focus, soldier!')), nl.
+                         write('Oh no! You miss your attack, better keep focus, soldier!')),nl.
 
 specialActPlayer    :-  (\+cooldown -> applySpPlayer(_), !).
 
@@ -75,20 +75,16 @@ drinkAct    :-  write('----------------------------------------------------'), n
                  PotionChoice = 5 -> drink(speed_potion)).
 
 runAct      :-  random(1, 11, X),
-                (
-                    X > 0 ->
-                    retract(isBattle(_)), write('OH MY GOD! You almost lost your life back then. Fortunately, you make the right move!'), nl,
-                    retract(enemy(Enemy)),
-                    retract(health(Enemy,_)),
-                    retract(attack(Enemy,_)),
-                    retract(specialattack(Enemy,_)),
-                    retract(defense(Enemy,_)),
-                    retract(speed(Enemy,_)),
-                    retract(goldEarned(Enemy,_)),
-                    retract(expEarned(Enemy,_))
-                    ;
-                    write('The enemy is too strong! But, you cannot retreat right now. Fight them!'), nl
-                ).
+                (X > 2 -> retract(isBattle(yes)), write('OH MY GOD! You almost lost your life back then. Fortunately, you make the right move!'), nl,
+                retract(enemy(Enemy)),
+                retract(health(Enemy,_)),
+                retract(attack(Enemy,_)),
+                retract(specialattack(Enemy,_)),
+                retract(defense(Enemy,_)),
+                retract(speed(Enemy,_)),
+                retract(goldEarned(Enemy,_)),
+                retract(expEarned(Enemy,_));
+                write('The enemy is too strong! But, you cannot retreat right now. Fight them!'), nl).
 
 
 /* Sistem damage dalam battle */
@@ -99,8 +95,7 @@ applyDmgPlayer(Damage)  :-  class(Username,_), attack(Username,Att), magic(Usern
 
 applyDmgEnemy(Damage)   :-  class(Username,_), enemy(Enemy), attack(Enemy,Att), health(Username,Hp), defense(Username,Def),
                             Damage is Att - (Def/2), retract(health(Username,Hp)),
-                            NewHp is Hp - Damage, asserta(health(Username,NewHp)),
-                            write('Are you ok? You left with '), write(NewHp), write('HP left!'), nl.
+                            NewHp is Hp - Damage, asserta(health(Username,NewHp)).
 
 applySpPlayer(Damage)   :-  class(Username,_), specialattack(Username,Att), enemy(Enemy), health(Enemy,Hp),
                             Damage is Att, retract(health(Enemy,Hp)),
@@ -110,46 +105,38 @@ applySpEnemy(Damage)    :-  class(Username,_), enemy(Enemy), specialattack(Enemy
                             Damage is Att, retract(health(Username,Hp)),
                             NewHp is Hp - Damage, asserta(health(Username,NewHp)).
 
+
 /* Definisi Battle */
 
 battle :-       
-            class(Username,_), enemy(Enemy), speed(Enemy,ESpeed), speed(Username,PSpeed),
-            repeat,
-                (PSpeed>ESpeed ->
+/* enemy(Enemy), speed(Enemy,ESpeed), speed(Username,PSpeed), */
+                    /* (PSpeed > ESpeed ->
+                        playerTurn,
+                        enemyTurn; */
+                    repeat,
                     playerTurn,
-                    (isEnemyDead -> winningBattle;write('musuh belum mati'), nl, enemyTurn)
-                ;
-                    (isEnemyDead -> winningBattle;write('musuh belum mati 2'), nl, enemyTurn),
-                    (isPlayerDead ->
-                        write('It was a pleasure to know you. But, what can I say other than goodbye?'),
-                        nl, halt
-                        ; playerTurn)
-                ),
-                isEnemyDead -> winningBattle,
-                /*write('MASIH BERTARUNGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG'),nl,
-                playerTurn,
-                (isEnemyDead -> winningBattle;
-                enemyTurn),*/
-                (\+isBattle(yes) -> !;
-                isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
-                fail).
-
+                    (isEnemyDead -> winningBattle; 
+                    enemyTurn),
+                    /*playerTurn,*/
+                    (\+isBattle(yes) -> !;
+                    isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
+                    fail).
 
 addGold(X,Add)  :-  gold(X,PrevGold), retract(gold(X,PrevGold)),
                     NewGold is PrevGold + Add, asserta(gold(X,NewGold)),
                     write('Cha ching! The monsters drop some money!'),nl.  
 
-winningBattle :-  
-                  /*monsterToKill(Enemy,Tot),
-                  retract(monsterToKill(Enemy,_)), asserta(monsterToKill(Enemy,Tot-1)),
-                  isQuestFinished,*/
-                    retract(isBattle(_)), write('That was indeed a splendid performance! Keep it up, champ!'), nl,
-                    enemy(Enemy), expEarned(Enemy,Exp), goldEarned(Enemy,Gold), addExp(Username,Exp), addGold(Username,Gold),
-                    retract(enemy(Enemy)),
-                    retract(health(Enemy,_)),
-                    retract(attack(Enemy,_)),
-                    retract(specialattack(Enemy,_)),
-                    retract(defense(Enemy,_)),
-                    retract(speed(Enemy,_)),
-                    retract(goldEarned(Enemy,_)),
-                    retract(expEarned(Enemy,_)).
+winningBattle   :-      
+/*monsterToKill(Enemy,Tot),
+                        retract(monsterToKill(Enemy,_)), asserta(monsterToKill(Enemy,Tot-1)),
+                        isQuestFinished, */
+                        retract(isBattle(_)), write('That was indeed a splendid performance! Keep it up, champ!'), nl,
+                        enemy(Enemy), expEarned(Enemy,Exp), goldEarned(Enemy,Gold), addExp(Username,Exp), addGold(Username,Gold),
+                        retract(enemy(Enemy)),
+                        retract(health(Enemy,_)),
+                        retract(attack(Enemy,_)),
+                        retract(specialattack(Enemy,_)),
+                        retract(defense(Enemy,_)),
+                        retract(speed(Enemy,_)),
+                        retract(goldEarned(Enemy,_)),
+                        retract(expEarned(Enemy,_)).
