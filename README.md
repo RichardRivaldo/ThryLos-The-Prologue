@@ -4,20 +4,26 @@
 
 **Gacha, Your Way to New Waifu**
 
-## Spesifikasi dan Permasalahan
+## Specification
+* Create a RPG Game with specified features and mechanism. 
 
 ## Stacks
-* Bahasa: GNU Prolog
+* GNU Prolog
 
 ## Setup dan Run
-* Pastikan telah memiliki GNU Prolog Console yang akan digunakan untuk melakukan run program.
-* Pastikan *console* telah berada di direktori yang mengandung program yang ingin dijalankan.
-* Hal tersebut dapat dilakukan dengan melakukan `change_directory(address)` terlebih dahulu, atau melalui menu 'file' di GNU Prolog Console.
-* Jalankan program main.pl dengan cara `consult('main.pl').`
-* Untuk menginisiasi game masukkan perintah `thrylos.` ke dalam console.
-* Masukkan *commands* yang telah disediakan dalam program.
+* Make sure to have GNU Prolog Console used to run the program.
+* Make sure that the console is in the directory of the main program.
+* Use `change_directory(address).` to change the directory the console in, or from the menu 'File' of GNU Prolog Console, choose 'Change Directory' and navigate to the folder.
+* Run the program 'main.pl' by entering `consult('main.pl').` or choose the file directly from the 'Consult' Menu in GNU Prolog Console.
+* To initiate the game, use the command `thrylos.` in the console.
+* Enter the *commands* available to player in the program. This can be checked by navigating to the WikiLog in the game.
 
 ## Sources
 * GNU Prolog Documentation
+* http://www.learnprolognow.org/
 
 ## Authors
+* 13519121 / Michael P. G.
+* 13519153 / Maximillian Lukman 
+* 13519169 / David Owen Adiwiguna
+* 13519185 / Richard Rivaldo
