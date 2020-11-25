@@ -88,6 +88,7 @@ wiki :-         write(' __    __ _ _    _   __'), nl,
                 WikiChoice = 4 -> mapWiki;
                 WikiChoice = 5 -> storeWiki;
                 WikiChoice = 6 -> enemyWiki;
+                WikiChoice = 7 -> questWiki;
                 mainMenu).
 
 about :-        write('   _   _                 _   '), nl,
@@ -268,3 +269,15 @@ enemyWiki   :-  write('   __                     _ '),nl,
                 write('3. And finally the last enemy you have to beat to save the land of ThryLos: Apex.'),nl,
                 write('   There is not much information because people are too scared to get close.'),nl,
                 write('4. Remember to always be careful and pay attention to your surrounding because you don\'t know when the monsters will attack you!'),nl.
+
+questWiki   :-  write('  / __ \                | |  '),nl,
+                write(' | |  | |_   _  ___  ___| |_ '),nl,
+                write(' | |  | | | | |/ _ \/ __| __|'),nl,
+                write(' | |__| | |_| |  __/\__ \ |_ '),nl,
+                write('  \___\_\\__,_|\___||___/\__|'),nl,nl,
+                write(' Quest can be accessed when you reach the \'Q\' point in map.'),nl,
+                write(' When you reach that point, a window will automatically pop up for you to choose your Quest.'),nl,
+                write(' The Quest and Quest reward will be generated according to your difficulty choice, and character level.'),nl,
+                write(' You can only have 1 Quest at a single time.')
+                write(' to check your progress, you can simply type \'checkQuest.\''),nl,
+                write(' You will get the Quest reward as soon as you finish it, wherever you are currently.')
