@@ -293,6 +293,16 @@ generateQuestReward(Min,Max) :- random(Min,Max,QuestReward),
                                 _QuestGoldReward = (QuestReward*150) + _Curgold.
 
 /* Kalau Quest beres baru dapet ini, quest bisa beres dimana ajah*/
+checkQuest :-   isQuestActive(Check),
+                Check = no -> write('You don\'t have any quest active at this moment');
+                Check = yes ->
+                write('To finish your quest you must kill : '),
+                monsterToKill(slime,SlimeToKill), SlimeToKill > 0 -> write(SlimeToKill), write(' slime');
+                monsterToKill(goblin,GoblinToKill), GoblinToKill > 0 -> write(GoblinToKill), write(' slime');
+                monsterToKill(wolf,WolfToKill), WolfToKill > 0 -> write(WolfToKill), write(' slime');
+                monsterToKill(spider,SpiderToKill), SpiderToKill > 0 -> write(SpiderToKill), write(' slime');
+                monsterToKill(zool,ZoolToKill), ZoolToKill > 0 -> write(ZoolToKill), write(' slime').
+
 :- dynamic(updateExpAndGoldQuest/0).
 
 updateExpAndGoldQuest :-write('Thank you for finishing the Quest, here is your reward!'), nl,
@@ -303,7 +313,8 @@ updateExpAndGoldQuest :-write('Thank you for finishing the Quest, here is your r
                         write(' Gold from this quest'),nl,
                         gold(X,_Curgold),
                         addExp(X,_QuestExpReward),
-                        _QuestGoldReward = _QuestGoldReward + _Curgold,
+                        _Temp = _QuestGoldReward,
+                        _QuestGoldReward = _Temp + _Curgold,
                         retract(gold(X,_)), asserta(gold(X,_QuestGoldReward)),
                         retract(isQuestActive(yes)), asserta(isQuestActive(no)).
 

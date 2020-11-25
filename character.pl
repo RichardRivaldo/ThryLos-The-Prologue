@@ -17,7 +17,7 @@ isClass(summoner).
 
 :- dynamic(createSwordsman/1).
 createSwordsman(X) :-   asserta(class(X, swordsman)), 
-                        asserta(health(X, 8)),
+                        asserta(health(X, 40)),
                         asserta(specialattack(X, 7)),
                         asserta(attack(X, 4)), 
                         asserta(magic(X, 2)), 
@@ -32,7 +32,7 @@ createSwordsman(X) :-   asserta(class(X, swordsman)),
 
 :- dynamic(createKnight/1).
 createKnight(X) :-      asserta(class(X, knight)), 
-                        asserta(health(X, 9)),
+                        asserta(health(X, 45)),
                         asserta(specialattack(X, 10)),
                         asserta(attack(X, 6)), 
                         asserta(magic(X, 3)), 
@@ -48,7 +48,7 @@ createKnight(X) :-      asserta(class(X, knight)),
 
 :- dynamic(createArcher/1).
 createArcher(X) :-      asserta(class(X, archer)), 
-                        asserta(health(X, 4)),
+                        asserta(health(X, 30)),
                         asserta(specialattack(X, 6)),
                         asserta(attack(X, 3)), 
                         asserta(magic(X, 3)), 
@@ -63,7 +63,7 @@ createArcher(X) :-      asserta(class(X, archer)),
 
 :- dynamic(createHunter/1).
 createHunter(X) :-      asserta(class(X, hunter)), 
-                        asserta(health(X, 6)),
+                        asserta(health(X, 35)),
                         asserta(specialattack(X, 8)),
                         asserta(attack(X, 5)), 
                         asserta(magic(X, 4)), 
@@ -78,7 +78,7 @@ createHunter(X) :-      asserta(class(X, hunter)),
 
 :- dynamic(createSorcerer/1).
 createSorcerer(X) :-    asserta(class(X, sorcerer)), 
-                        asserta(health(X, 4)),
+                        asserta(health(X, 30)),
                         asserta(specialattack(X, 9)),
                         asserta(attack(X, 2)),
                         asserta(magic(X, 7)), 
@@ -93,7 +93,7 @@ createSorcerer(X) :-    asserta(class(X, sorcerer)),
 
 :- dynamic(createMagus/1).
 createMagus(X) :-       asserta(class(X, magus)), 
-                        asserta(health(X, 6)),
+                        asserta(health(X, 35)),
                         asserta(specialattack(X, 11)),
                         asserta(attack(X, 3)), 
                         asserta(magic(X, 9)), 
@@ -108,7 +108,7 @@ createMagus(X) :-       asserta(class(X, magus)),
 
 :- dynamic(createAssassin/1).
 createAssassin(X) :-    asserta(class(X, assassin)), 
-                        asserta(health(X, 5)),
+                        asserta(health(X, 30)),
                         asserta(specialattack(X, 9)),
                         asserta(attack(X, 6)), 
                         asserta(magic(X, 3)), 
@@ -123,7 +123,7 @@ createAssassin(X) :-    asserta(class(X, assassin)),
 
 :- dynamic(createSlayer/1).
 createSlayer(X) :-      asserta(class(X, slayer)), 
-                        asserta(health(X, 6)),
+                        asserta(health(X, 35)),
                         asserta(specialattack(X, 12)),
                         asserta(attack(X, 8)), 
                         asserta(magic(X, 3)), 
@@ -138,7 +138,7 @@ createSlayer(X) :-      asserta(class(X, slayer)),
 
 :- dynamic(createTamer/1).
 createTamer(X) :-       asserta(class(X, tamer)), 
-                        asserta(health(X, 5)),
+                        asserta(health(X, 35)),
                         asserta(specialattack(X, 6)),
                         asserta(attack(X, 3)), 
                         asserta(magic(X, 3)), 
@@ -153,7 +153,7 @@ createTamer(X) :-       asserta(class(X, tamer)),
 
 :- dynamic(createSummoner/1).
 createSummoner(X) :-    asserta(class(X, summoner)), 
-                        asserta(health(X, 6)),
+                        asserta(health(X, 40)),
                         asserta(specialattack(X, 9)),
                         asserta(attack(X, 5)), 
                         asserta(magic(X, 5)), 
