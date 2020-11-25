@@ -293,7 +293,7 @@ generateQuestReward(Min,Max) :- random(Min,Max,QuestReward),
                                 _QuestGoldReward = (QuestReward*150) + _Curgold.
 
 
-checkQuest :-   isQuestActive(Check),
+quest :-        isQuestActive(Check),
                 Check = no -> write('You don\'t have any quest active at this moment'),nl;
                 Check = yes ->
                 (
@@ -337,8 +337,3 @@ isQuestFinished :-  isQuestActive(yes),
                     updateExpAndGoldQuest.
 
 isQuestFinished.
-
-/* To Do
-- Cek apakah player ada di Q (DONE)
-- Cek apakah player memiliki quest yang aktif (DONE)
-- Implement Progress dan finish Quest (DONE) */

@@ -37,20 +37,24 @@ mainMenu :-     write('              _'), nl,
                 write('                 1. Start Your Journey                '), nl,
                 write('------------------------------------------------------'), nl,
                 write('------------------------------------------------------'), nl,
-                write('                       2. WikiLog                     '), nl,
+                write('                    2. Load Memento                   '), nl,
                 write('------------------------------------------------------'), nl,
                 write('------------------------------------------------------'), nl,
-                write('                        3. About                      '), nl,
+                write('                       3. WikiLog                     '), nl,
                 write('------------------------------------------------------'), nl,
                 write('------------------------------------------------------'), nl,
-                write('                    4. Quit The Game                  '), nl,
+                write('                        4. About                      '), nl,
+                write('------------------------------------------------------'), nl,
+                write('------------------------------------------------------'), nl,
+                write('                    5. Quit The Game                  '), nl,
                 write('------------------------------------------------------'), nl, nl,
 
                 write('Whatever you pick, we will support it! Now, what is it? '), read_integer(Nav),
 
                 (Nav = 1 -> write('Have fun! May the force be with you.'), nl, nl, start, !;
-                Nav = 2 -> write('Transferring you to our Wiki...'), nl, wiki, !;
-                Nav = 3 -> write('Generating the Tales of ThryLos...'), nl, about, !;
+                Nav = 2 -> write('Searching for your memories...'), nl, nl, load, !;
+                Nav = 3 -> write('Transferring you to our Wiki...'), nl, wiki, !;
+                Nav = 4 -> write('Generating the Tales of ThryLos...'), nl, about, !;
                 quit, !).
 
 /* Definisi Quit Game */
@@ -69,7 +73,8 @@ quit :-         write('Are you sure you want to quit ThryLos? '), read(QChc), nl
                 retractall(stored(_,_)), retractall(player(_,_)), retractall(store(_,_)), 
                 retractall(leftZone(_,_)), retractall(rightZone(_,_)), retractall(store(_,_)),
                 retractall(dungeon(_,_)), retractall(quest(_,_)), retractall(innerWall(_,_)), 
-                retractall(teleport(_,_)), retractall(isTaken(_,_)), retractall(zone(_));
+                retractall(teleport(_,_)), retractall(isTaken(_,_)), retractall(zone(_)),
+                retractall(spcooldown(_)), retractall(monsterToKill(_,_)), retractall(isQuestActive(_));
                 write('Pyuuhh. Let us continue, then!'), nl, !).
 
 
@@ -325,6 +330,8 @@ save :-             write('Fill in The Memento ID you want to store your stats t
                         listing(exp/2), listing(zone/1), listing(level/2), 
                         listing(eqAccessory/1), listing(eqWeapon/1), listing(eqArmor/1), 
                         listing(usedSpace/1), listing(stored/2), listing(player/2),
+                        listing(monsterToKill/2), listing(isQuestActive/1), listing(spcooldown/1),
+                        
                     told,
                     write('-------------------------------------------------------------------------'), nl,
                     write('---------------------------STORING YOUR POWERS---------------------------'), nl,
@@ -332,7 +339,7 @@ save :-             write('Fill in The Memento ID you want to store your stats t
                     write('-------------------------------------------------------------------------'), nl, nl, !.
 
 load :-             write('Pick your Memento ID to synchronize with: '), read(FileName), nl,
-                    (\+file_exists(FileName) -> write('You don\'t have this file, noob.'), nl, fail;
+                    (\+file_exists(FileName) -> write('You don\'t have this Memento, noob.'), nl, fail;
                     open(FileName, read, Stream), fToList(Stream, Lines),
                     lToCodes(Lines), close(Stream), zone(X), player(XNow, YNow),
                     (X = 1 -> initMap1; X = 2 -> initMap2; initMap3),
