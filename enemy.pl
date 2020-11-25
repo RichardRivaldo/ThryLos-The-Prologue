@@ -400,5 +400,8 @@ dungeon       :-        asserta(isBattle(yes)),
 isPlayerDead :-         class(User, _), health(User, Health),
                         Health < 1, !.
 
-isEnemyDead :-          enemy(Enemy), health(Enemy, Health),
-                        Health < 1, !.
+isEnemyDead :-          (\+enemy(Enemy) -> write('enemy sudah tidak ada'), !
+                        ;
+                          health(Enemy, Health),
+                          Health < 1, !
+                        ).
