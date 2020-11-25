@@ -280,4 +280,4 @@ questWiki   :-  write('  / __ \                | |  '),nl,
                 write(' The Quest and Quest reward will be generated according to your difficulty choice, and character level.'),nl,
                 write(' You can only have 1 Quest at a single time.')
                 write(' to check your progress, you can simply type \'checkQuest.\''),nl,
-                write(' You will get the Quest reward as soon as you finish it, wherever you are currently.')
+                write(' You will get the Quest reward as soon as you finish it, wherever you are currently.'),nl.

@@ -403,7 +403,7 @@ nerfedAcc(Item) :-      class(User, Class), isAccessory(Item, Class), itemClass(
 /* Definisi Boost Potion */
 
 boostPotion(Item) :-    class(User, Class), isPotion(Item, Class), 
-                        (Item == health_potion -> retract(health(User, PrevStats)), NewStats is PrevStats + 2, asserta(health(User, NewStats));
+                        (Item == health_potion -> retract(health(User, PrevStats)), NewStats is PrevStats + 10, asserta(health(User, NewStats));
                         Item == attack_potion -> retract(attack(User, PrevStats)), NewStats is PrevStats + 2, asserta(attack(User, NewStats));
                         Item == defense_potion -> retract(defense(User, PrevStats)), NewStats is PrevStats + 2, asserta(defense(User, NewStats));
                         Item == magic_potion -> retract(magic(User, PrevStats)), NewStats is PrevStats + 2, asserta(magic(User, NewStats));
