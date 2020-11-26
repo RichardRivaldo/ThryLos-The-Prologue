@@ -191,3 +191,61 @@ winningBattle :-    enemy(Enemy),
                     retract(speed(Enemy,_)),
                     retract(goldEarned(Enemy,_)),
                     retract(expEarned(Enemy,_)).
+
+lastbattle  :-  class(Username,_), enemy(Enemy), speed(Enemy,ESpeed), speed(Username,PSpeed),
+                repeat,
+                    (PSpeed>ESpeed ->
+                        playerTurn,
+                        (isEnemyDead -> winningLastBattle; enemyTurn)
+                    ;
+                        (isEnemyDead -> winningLastBattle; enemyTurn),
+                        (isPlayerDead ->
+                            write('It was a pleasure to know you. But, what can I say other than goodbye?'),
+                            nl, halt
+                            ; playerTurn)
+                    ),
+                    isEnemyDead -> winningLastBattle,
+                    (\+isBattle(yes) -> !;
+                    isPlayerDead -> write('It was a pleasure to know you. But, what can I say other than goodbye?'), nl, halt;
+                    fail).                    
+
+winningLastBattle   :-  retract(isBattle(_)), retract(enemy(_)),
+                        write('|-------------------------------------------------------------------------------|'),nl,
+                        write('|-------------------------------------------------------------------------------|'),nl,
+                        write('|---------------------CONGRATULATIONS ON WINNING THE GAME!----------------------|'),nl,
+                        write('|-------------------------------------------------------------------------------|'),nl,
+                        write('|-------------------------------------------------------------------------------|'),nl,
+                        write('|-------------You have saved the world of ThryLos by beating Apex!--------------|'),nl,
+                        write('|------The people of ThryLos can\'t thank you enough for what have you done------|'),nl,
+                        write('|------------Your name will always be remembered throughout ThryLos-------------|'),nl,
+                        write('|-------------------------------------------------------------------------------|'),nl,
+                        write('|------------------------------This land is safe--------------------------------|'),nl,
+                        write('|----------------------------------for now...-----------------------------------|'),nl,
+                        write('|-------------------------------------------------------------------------------|'),nl,
+                        write('|-------------------------------------------------------------------------------|'),nl,nl,
+
+                        write('You can go to the main menu if you want another adventure,'),nl,
+                        write('or you can just quit the game and back to your boring life....'),nl,
+                        write('So, do you want to redo your journey? (yes./no.) '), read(QuitChoice),nl,nl,
+                        (QuitChoice = yes ->
+                            write('Nice choice! Let your dream and imagination come true once again...'),nl,
+                            write('.'),nl,
+                            write('.'),nl,
+                            write('.'),nl,
+                            write('.'),nl,
+                            write('.'),nl,
+                            write('.'),nl,
+                            retractall(started(_)), retractall(class(_, _)), retractall(health(_,_)),
+                            retractall(attack(_,_)), retractall(defense(_,_)), retractall(magic(_,_)),
+                            retractall(speed(_,_)), retractall(specialattack(_,_)), retractall(gold(_,_)),
+                            retractall(exp(_,_)), retractall(level(_,_)), retractall(eqWeapon(_)),
+                            retractall(eqAccessory(_)), retractall(eqArmor(_)), retractall(usedSpace(_)),
+                            retractall(stored(_,_)), retractall(player(_,_)), retractall(store(_,_)), 
+                            retractall(leftZone(_,_)), retractall(rightZone(_,_)), retractall(store(_,_)),
+                            retractall(dungeon(_,_)), retractall(quest(_,_)), retractall(innerWall(_,_)), 
+                            retractall(teleport(_,_)), retractall(isTaken(_,_)), retractall(zone(_)),
+                            retractall(spcooldown(_)), retractall(monsterToKill(_,_)), retractall(isQuestActive(_)),
+                            mainMenu;
+                         QuitChoice = no -> 
+                            write('You choose your boring life? Okay then, till we meet again!'),nl,
+                            halt).

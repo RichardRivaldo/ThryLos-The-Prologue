@@ -19,7 +19,7 @@ isClass(summoner).
 createSwordsman(X) :-   asserta(class(X, swordsman)), 
                         asserta(health(X, 40)),
                         asserta(specialattack(X, 7)),
-                        asserta(attack(X, 4)), 
+                        asserta(attack(X, 5)), 
                         asserta(magic(X, 2)), 
                         asserta(defense(X, 5)), 
                         asserta(speed(X, 2)),
