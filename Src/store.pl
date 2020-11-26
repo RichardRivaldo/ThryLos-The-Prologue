@@ -85,9 +85,9 @@ visitStore  :-  write('Welcome to the shop adventurer!'), nl,
                         );
                         PotionChoice = 0 ->
                         (
-                            exitMessage   
+                            cancelMessage   
                         )
-                    );
+                    ),visitStore;
                 ShopChoice = 2 ->
                     write('Hoho! You got some guts huh? Let\'s see how lucky you are!'),nl,
 
@@ -114,7 +114,8 @@ visitStore  :-  write('Welcome to the shop adventurer!'), nl,
                     write('|                                                          |          |'),nl,
                     write('| 0. Cancel                                                |          |'),nl,
                     write('|---------------------------------------------------------------------|'),nl,
-
+                    
+                    write('Pick an option : '),
                     read_integer(GachaChoice),nl,
 					random(1,100,R),
                     (
@@ -123,7 +124,9 @@ visitStore  :-  write('Welcome to the shop adventurer!'), nl,
                             Balance>=50 ->
                                 NewBalance is Balance-50,
                                 updateGold(NewBalance),
-                                getGachaResultStandard(R)
+                                getGachaResultStandard(R),
+                                write('Hope you are satisfied with your luck!'),nl,
+                                visitStore
                                 ;unsufficientGold
                         );
                         GachaChoice = 2 ->
@@ -131,7 +134,9 @@ visitStore  :-  write('Welcome to the shop adventurer!'), nl,
                             Balance>=100 ->
                                 NewBalance is Balance-100,
                                 updateGold(NewBalance),
-                                getGachaResultSilver(R)
+                                getGachaResultSilver(R),
+                                write('Hope you are satisfied with your luck!'),nl,
+                                visitStore
                                 ;unsufficientGold
                         );
                         GachaChoice = 3 ->
@@ -139,7 +144,9 @@ visitStore  :-  write('Welcome to the shop adventurer!'), nl,
                             Balance>=200 ->
                                 NewBalance is Balance-200,
                                 updateGold(NewBalance),
-                                getGachaResultGold(R)
+                                getGachaResultGold(R),
+                                write('Hope you are satisfied with your luck!'),nl,
+                                visitStore
                                 ;unsufficientGold
                         );
                         GachaChoice = 4 ->
@@ -147,19 +154,18 @@ visitStore  :-  write('Welcome to the shop adventurer!'), nl,
                              Balance>=200 ->
                                 NewBalance is Balance-200,
                                 updateGold(NewBalance),
-                                getGachaResultGambler(R)
+                                getGachaResultGambler(R),
+                                write('Hope you are satisfied with your luck!'),nl,
+                                visitStore
                                 ;unsufficientGold
                         );
                         GachaChoice = 0 ->
                         (
-                            exitMessage
+                            cancelMessage
                         )
                     );
                 ShopChoice = 0 -> exitMessage
-                ),
-
-                write('Hope you are satisfied with your luck!'),nl,
-                write('See you later!').
+                ).
 
 updateGold(NewBalance):-
     retract(gold(X,_)), asserta(gold(X,NewBalance)).
@@ -262,6 +268,9 @@ choose(List, Elt):-
     nth0(Index,List,Elt).   
 
 /* Definisi pengecut */
+
+cancelMessage :-
+    write('Need anything else? That\'s okay! Let\'s see how can i help you with!'),nl.
 
 exitMessage :-
     write('Still not sure? That\'s ok! Come back anytime!'),nl.
