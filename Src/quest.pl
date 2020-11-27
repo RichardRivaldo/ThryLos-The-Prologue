@@ -8,7 +8,7 @@ level(_tes,3).
 :-dynamic(monsterToKill/2).
 :-dynamic(isQuestActive/1).
 
-isQuestActive(yes).
+isQuestActive(no).
 monsterToKill(slime,0).
 monsterToKill(goblin,0).
 monsterToKill(wolf,0).
