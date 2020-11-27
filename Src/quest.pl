@@ -9,11 +9,11 @@ level(_tes,3).
 :-dynamic(isQuestActive/1).
 
 isQuestActive(yes).
-monsterToKill(slime,1).
-monsterToKill(goblin,2).
+monsterToKill(slime,0).
+monsterToKill(goblin,0).
 monsterToKill(wolf,0).
-monsterToKill(spider,4).
-monsterToKill(zool,5).
+monsterToKill(spider,0).
+monsterToKill(zool,0).
 monsterToKill(apex,0).
 
 :- dynamic(getQuest/0).   
