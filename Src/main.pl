@@ -323,6 +323,10 @@ map :-              (\+started(_) -> fail;
                     write('* If you don\'t see any one of these, don\'t worry. You will find it later so keep going!'), nl,
                     write('-----------------------------------------------------------------------------------------'), nl, !).
 
+/* Fungsionalitas Save dan Load */
+/* Diakses melalui Main Menu */
+/* Sumber belajar: LearnProlog.com */
+
 save :-             write('Fill in The Memento ID you want to store your stats to: '), read(FileName), nl,
                     tell(FileName),
                         listing(started/1), listing(class/2), listing(health/2), 
