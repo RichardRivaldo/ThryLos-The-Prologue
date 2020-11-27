@@ -74,7 +74,8 @@ quit :-         write('Are you sure you want to quit ThryLos? '), read(QChc), nl
                 retractall(leftZone(_,_)), retractall(rightZone(_,_)), retractall(store(_,_)),
                 retractall(dungeon(_,_)), retractall(quest(_,_)), retractall(innerWall(_,_)), 
                 retractall(teleport(_,_)), retractall(isTaken(_,_)), retractall(zone(_)),
-                retractall(spcooldown(_)), retractall(monsterToKill(_,_)), retractall(isQuestActive(_));
+                retractall(spcooldown(_)), retractall(monsterToKill(_,_)), retractall(isQuestActive(_)),
+                retractall(getQuestReward(_,_));
                 write('Pyuuhh. Let us continue, then!'), nl, !).
 
 
@@ -331,6 +332,7 @@ save :-             write('Fill in The Memento ID you want to store your stats t
                         listing(eqAccessory/1), listing(eqWeapon/1), listing(eqArmor/1), 
                         listing(usedSpace/1), listing(stored/2), listing(player/2),
                         listing(monsterToKill/2), listing(isQuestActive/1), listing(spcooldown/1),
+                        listing(getQuestReward/2),
                         
                     told,
                     write('-------------------------------------------------------------------------'), nl,
