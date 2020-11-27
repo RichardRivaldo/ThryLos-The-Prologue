@@ -17,6 +17,7 @@ monsterToKill(wolf,0).
 monsterToKill(spider,0).
 monsterToKill(zool,0).
 monsterToKill(apex,0).
+getQuestReward(0,0).
 
 :- dynamic(getQuest/0).   
 
@@ -369,25 +370,24 @@ quest :-        isQuestActive(Check),
                     nl
                 ).
 
-
-
 :- dynamic(updateExpAndGoldQuest/0).
 /* Kalau Quest beres baru dapet ini, quest bisa beres dimana ajah*/
-updateExpAndGoldQuest :-write('Thank you for finishing the Quest, here is your reward!'), nl,
+updateExpAndGoldQuest :-nl,write('Thank you for finishing the Quest, here is your reward!'), nl,
                         getQuestReward(QuestExpReward,QuestGoldReward),
                         write('You\'ve earned '),
                         write(QuestExpReward),
                         write(' EXP and '),
                         write(QuestGoldReward),
-                        write(' Gold from this quest'),nl,
+                        write(' Gold from this quest'),nl,nl,
                         gold(X,_Curgold),
-                        addExp(X,_QuestExpReward), 
+                        addExp(X,QuestExpReward), 
                         _QuestGoldAfter is (QuestGoldReward + _Curgold),
                         retract(gold(X,_)), asserta(gold(X,_QuestGoldAfter)),
                         retract(isQuestActive(yes)), asserta(isQuestActive(no)).
 
 exitQuest :- write('Thank you adventurer, may the odds be ever in your favor'),nl.
 
+:- dynamic(isQuestFinished/0).
 isQuestFinished :-  isQuestActive(yes),
                     monsterToKill(slime,SlimeKill), SlimeKill < 1,
                     monsterToKill(goblin,GoblinKill), GoblinKill < 1,
