@@ -8,12 +8,12 @@ level(_tes,3).
 :-dynamic(monsterToKill/2).
 :-dynamic(isQuestActive/1).
 
-isQuestActive(no).
-monsterToKill(slime,0).
-monsterToKill(goblin,0).
+isQuestActive(yes).
+monsterToKill(slime,1).
+monsterToKill(goblin,2).
 monsterToKill(wolf,0).
-monsterToKill(spider,0).
-monsterToKill(zool,0).
+monsterToKill(spider,4).
+monsterToKill(zool,5).
 monsterToKill(apex,0).
 
 :- dynamic(getQuest/0).   
@@ -292,22 +292,56 @@ generateQuestReward(Min,Max) :- random(Min,Max,QuestReward),
                                 _QuestExpReward = (QuestReward*100),
                                 _QuestGoldReward = (QuestReward*150) + _Curgold.
 
+questSlime  :-  monsterToKill(slime,SlimeToKill),
+                SlimeToKill > 0 -> 
+                (
+                    write(SlimeToKill), 
+                    write(' Slime ')
+                ).
+questSlime.
+
+questGoblin :-  monsterToKill(goblin,GoblinToKill),
+                GoblinToKill > 0 -> 
+                (
+                    write(GoblinToKill), 
+                    write(' Goblin ')
+                ).
+questGoblin.
+
+questWolf   :-  monsterToKill(wolf,WolfToKill), 
+                WolfToKill > 0 -> 
+                (
+                    write(WolfToKill), 
+                    write(' Wolf ')
+                ).
+questWolf.
+
+questSpider :-  monsterToKill(spider,SpiderToKill),
+                SpiderToKill > 0 -> 
+                (
+                    write(SpiderToKill), 
+                    write(' Spider ')
+                ).
+questSpider.
+
+questZool   :-  monsterToKill(zool,ZoolToKill),
+                ZoolToKill > 0 -> 
+                (
+                    write(ZoolToKill), 
+                    write(' Zool ')
+                ).
+questZool.
 
 quest :-        isQuestActive(Check),
                 Check = no -> write('You don\'t have any quest active at this moment'),nl;
                 Check = yes ->
                 (
-                    write('To finish your quest you must kill : '),
-                    monsterToKill(slime,SlimeToKill), SlimeToKill > 0 -> 
-                        write(SlimeToKill), write(' slime '),
-                    monsterToKill(goblin,GoblinToKill), GoblinToKill > 0 -> 
-                        write(GoblinToKill), write(' goblin '),
-                    monsterToKill(wolf,WolfToKill), WolfToKill > 0 -> 
-                        write(WolfToKill), write(' wolf '),
-                    monsterToKill(spider,SpiderToKill), SpiderToKill > 0 -> 
-                        write(SpiderToKill), write(' spider '),
-                    monsterToKill(zool,ZoolToKill), ZoolToKill > 0 -> 
-                        write(ZoolToKill), write(' zool '),
+                    write('To finish your quest you must kill : '), 
+                    questSlime,
+                    questGoblin,
+                    questWolf,
+                    questSpider,
+                    questZool,
                     nl
                 ).
 
