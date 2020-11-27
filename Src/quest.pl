@@ -2,11 +2,13 @@
 
 /*debugging kit
 level(_tes,3).
-
-
+:- dynamic(gold/2).
+gold(test,100).
+getQuestReward(500,750).
 */
 :-dynamic(monsterToKill/2).
 :-dynamic(isQuestActive/1).
+:-dynamic(getQuestReward/2).
 
 isQuestActive(no).
 monsterToKill(slime,0).
@@ -288,49 +290,71 @@ generateQuestHard(Lvl) :- (Lvl =:= 1 ->
                             )
                             ).
 
+:-dynamic(generateQuestReward/2).
 generateQuestReward(Min,Max) :- random(Min,Max,QuestReward),
-                                _QuestExpReward = (QuestReward*100),
-                                _QuestGoldReward = (QuestReward*150) + _Curgold.
+                                QuestExpReward is (QuestReward*100),
+                                QuestGoldReward is (QuestReward*150),
+                                retract(getQuestReward(_,_)), asserta(getQuestReward(QuestExpReward,QuestGoldReward)).
 
 questSlime  :-  monsterToKill(slime,SlimeToKill),
                 SlimeToKill > 0 -> 
                 (
                     write(SlimeToKill), 
                     write(' Slime ')
+                );
+                monsterToKill(slime,SlimeToKill),
+                SlimeToKill < 1 -> 
+                (
+                    write(' 0 Slime ')
                 ).
-questSlime.
 
 questGoblin :-  monsterToKill(goblin,GoblinToKill),
                 GoblinToKill > 0 -> 
                 (
                     write(GoblinToKill), 
                     write(' Goblin ')
+                );
+                monsterToKill(goblin,GoblinToKill),
+                GoblinToKill < 1 -> 
+                (
+                    write(' 0 Goblin ')
                 ).
-questGoblin.
 
 questWolf   :-  monsterToKill(wolf,WolfToKill), 
                 WolfToKill > 0 -> 
                 (
                     write(WolfToKill), 
                     write(' Wolf ')
+                );
+                monsterToKill(wolf,WolfToKill), 
+                WolfToKill < 1 -> 
+                (
+                    write(' 0 Wolf ')
                 ).
-questWolf.
 
 questSpider :-  monsterToKill(spider,SpiderToKill),
                 SpiderToKill > 0 -> 
                 (
                     write(SpiderToKill), 
                     write(' Spider ')
+                );
+                monsterToKill(spider,SpiderToKill),
+                SpiderToKill < 1 ->
+                (
+                    write(' 0 Spider ')
                 ).
-questSpider.
 
 questZool   :-  monsterToKill(zool,ZoolToKill),
                 ZoolToKill > 0 -> 
                 (
                     write(ZoolToKill), 
                     write(' Zool ')
+                );
+                monsterToKill(zool,ZoolToKill),
+                ZoolToKill < 1 ->
+                (
+                    write(' 0 Zool ')
                 ).
-questZool.
 
 quest :-        isQuestActive(Check),
                 Check = no -> write('You don\'t have any quest active at this moment'),nl;
@@ -345,19 +369,21 @@ quest :-        isQuestActive(Check),
                     nl
                 ).
 
+
+
 :- dynamic(updateExpAndGoldQuest/0).
 /* Kalau Quest beres baru dapet ini, quest bisa beres dimana ajah*/
 updateExpAndGoldQuest :-write('Thank you for finishing the Quest, here is your reward!'), nl,
+                        getQuestReward(QuestExpReward,QuestGoldReward),
                         write('You\'ve earned '),
-                        write(_QuestExpReward),
+                        write(QuestExpReward),
                         write(' EXP and '),
-                        write(_QuestGoldReward),
+                        write(QuestGoldReward),
                         write(' Gold from this quest'),nl,
                         gold(X,_Curgold),
-                        addExp(X,_QuestExpReward),
-                        _Temp = _QuestGoldReward,
-                        _QuestGoldReward = _Temp + _Curgold,
-                        retract(gold(X,_)), asserta(gold(X,_QuestGoldReward)),
+                        addExp(X,_QuestExpReward), 
+                        _QuestGoldAfter is (QuestGoldReward + _Curgold),
+                        retract(gold(X,_)), asserta(gold(X,_QuestGoldAfter)),
                         retract(isQuestActive(yes)), asserta(isQuestActive(no)).
 
 exitQuest :- write('Thank you adventurer, may the odds be ever in your favor'),nl.
